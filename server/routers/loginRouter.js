@@ -6,9 +6,10 @@ const loginController = require('../controllers/loginController');
 // check for a cookie before any request
 // create a middleware that handles checking for cookies
 
-router.post('/',
-loginController.createUser,
-(req, res) => res.status(200).json({}));
+router.post('/', loginController.createUser, (req, res) => { 
+    console.log('saved user to database');
+    return res.status(200).json(res.locals.newUser);
+});
 
 
 router.post('/',
