@@ -9,12 +9,30 @@
  * ************************************
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 
-const Login = () => {
+// If we have no user: sign in button
+// if we have a user: show the sign out button
+
+// function handleSignOut(event) {
+//   setUser({});
+//   document.getElementById('signInDiv').hidden = false;
+// }
+
+const Login = props => {
   return (
-    <div id='app'>
-      <h1>I am the App</h1>
+    <div id='Login'>
+      <h1>Plan It Travel Login Page</h1>
+      <div id='signInDiv'></div>
+      {/* {Object.keys(props.user).length != 0 && (
+        <button onClick={e => handleSignOut(e)}>Sign Out</button>
+      )} */}
+      {props.user && (
+        <div>
+          <img src={props.user.picture}></img>
+          <h3>{props.user.name}</h3>
+        </div>
+      )}
     </div>
   );
 };
