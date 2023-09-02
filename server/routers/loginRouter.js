@@ -8,7 +8,7 @@ const loginController = require('../controllers/loginController');
 
 router.post('/', loginController.createUser, (req, res) => { 
     console.log('saved user to database');
-    return res.status(200).json(res.locals.newUser);
+    return res.status(201);
 });
 
 

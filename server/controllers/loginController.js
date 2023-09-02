@@ -1,4 +1,3 @@
-const path = require('path');
 const pool = require(path.join(__dirname, './../db/postgresModel'));
 const loginController = {};
 
@@ -31,9 +30,12 @@ loginController.createUser = async (req, res, next) => {
 };
 
 
-loginController.getUser = (req, res, next) => {
+loginController.verifyUser = (req, res, next) => {
+    // check if username and password matches what we have in our database
+        const { username, password } = req.params;
 
-    next();
+    res.locals.userId = 3;
+    return next();
 };
 
 
