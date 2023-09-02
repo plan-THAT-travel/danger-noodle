@@ -1,5 +1,13 @@
 -- 
-DROP TABLE users, travel_group, itinerary_item, group_members;
+DROP TABLE users, user_session, travel_group, itinerary_item, group_members;
+
+CREATE TABLE IF NOT EXISTS user_session(
+    _id serial NOT NULL,
+    cookie_id varchar NOT NULL,
+    user_id bigint NOT NULL,
+    date_of_creation timestamp NOT NULL,
+    CONSTRAINT "user_session_pk0" PRIMARY KEY ("_id")
+) WITH (OIDS=FALSE);
 
 -- Users table
 CREATE TABLE IF NOT EXISTS users(
@@ -39,6 +47,18 @@ CREATE TABLE IF NOT EXISTS group_members(
     group_id bigint NOT NULL,
     CONSTRAINT "group_member_pk0" PRIMARY KEY ("_id")
 ) WITH (OIDS=FALSE);
+
+/*
+Sessions:
+    -users
+*/
+ALTER TABLE user_session ADD CONSTRAINT "user_session_fk0" FOREIGN KEY ("user_id") REFERENCES users("_id");
+
+/*
+Users:
+    -unique username
+*/
+ALTER TABLE users ADD CONSTRAINT "unique_username" UNIQUE ("username");
 
 /* 
 Travel Group FKs 
