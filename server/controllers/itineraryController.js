@@ -72,6 +72,20 @@ itineraryController.getAllItineraries = async (req, res, next) => {
   };
 }
 
+itineraryController.addItinerary = async (req, res, next) => {
+  //
+  try {
+    
+  } catch (err) {
+    const errObj = {
+      log: 'itineraryController.addItinerary Error',
+      message: {error: 'itineraryController.addItinerary Error'},
+      status: 404,
+  }
+  return next({ ...errObj, log: err.message});
+  };
+}
+
 itineraryController.updateItinerary = async (req, res, next) => {
   //
   try {
