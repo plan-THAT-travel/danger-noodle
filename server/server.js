@@ -15,7 +15,11 @@ if (process.env.NODE_ENV === 'production') {
   
 // Base uses
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+// serves static files
+app.use('/client', express.static(path.resolve(__dirname, '../client'))); 
 
 app.use('/api/users', loginRouter);
 
