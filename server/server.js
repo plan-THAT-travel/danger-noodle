@@ -1,12 +1,14 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const { model } = require('mongoose');
+const loginRouter = require('./routers/loginRouter');
+const itineraryRouter = require(path.join(__dirname, 'routers/itineraryRouter'));
+const groupsRouter = require('./routers/groupsRouter');
 
 const app = express();
 const PORT = 3000;
 
-const loginRouter = require('./routers/loginRouter');
+
 
 // For environement production serve static files from dist
 if (process.env.NODE_ENV === 'production') {
@@ -20,9 +22,9 @@ app.use(cookieParser());
 
 app.use('/api/users', loginRouter);
 
-app.use('/api/groups');
+app.use('/api/groups', groupsRouter);
 
-app.use('/api/itinerary');
+app.use('/api/itinerary', itineraryRouter);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.status(404).send('Unknown Route'));
