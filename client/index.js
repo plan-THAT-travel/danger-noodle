@@ -9,7 +9,8 @@
  * ************************************
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import jwt_decode from 'jwt-decode';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -18,18 +19,21 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Trip from './pages/Trip';
 import store from './store';
+import GCID_URI from './pages/clientURLs';
 // import styles from './scss/application.scss'; // eslint-disable-line no-unused-vars
 
 export default function App() {
+  const [user, setUser] = useState({}); // currently using state, but need to use Redux store instead
   function handleCallbackResponse(response) {
-    console.log('Encoded JWT ID token: ' + response.credential);
+    const userObject = jwt_decode(response.credential);
+    setUser(userObject);
+    document.getElementById('signInDiv').hidden = true;
   }
 
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
-      client_id:
-        '3856539987-rfnt9id36pgrbldlr9l9b55v5brelh1t.apps.googleusercontent.com',
+      client_id: GCID_URI,
       callback: handleCallbackResponse,
     });
     google.accounts.id.renderButton(document.getElementById('signInDiv'), {
@@ -42,8 +46,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout />} />
-        <Route index element={<Login />} />
-        <Route path='/home' element={<Home />} />
+        <Route index element={<Login user={user} />} />
+        <Route path='/Home' element={<Home />} />
         <Route path='/Trip' element={<Trip />} />
       </Routes>
     </BrowserRouter>
