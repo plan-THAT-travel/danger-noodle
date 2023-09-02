@@ -13,8 +13,9 @@ import React from 'react';
 
 const Login = () => {
   return (
-    <div id='app'>
+    <div id='Login'>
       <h1>I am the App</h1>
+      <div id='signInDiv'></div>
     </div>
   );
 };

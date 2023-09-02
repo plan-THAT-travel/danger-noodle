@@ -9,7 +9,7 @@
  * ************************************
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -21,6 +21,23 @@ import store from './store';
 // import styles from './scss/application.scss'; // eslint-disable-line no-unused-vars
 
 export default function App() {
+  function handleCallbackResponse(response) {
+    console.log('Encoded JWT ID token: ' + response.credential);
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id:
+        '3856539987-rfnt9id36pgrbldlr9l9b55v5brelh1t.apps.googleusercontent.com',
+      callback: handleCallbackResponse,
+    });
+    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
+      theme: 'outline',
+      size: 'large',
+    });
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
