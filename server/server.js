@@ -6,7 +6,7 @@ const { model } = require('mongoose');
 const app = express();
 const PORT = 3000;
 
-const loginRouter = require('./routes/login');
+const loginRouter = require('./routers/loginRouter');
 
 // For environement production serve static files from dist
 if (process.env.NODE_ENV === 'production') {
