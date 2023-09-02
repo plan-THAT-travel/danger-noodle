@@ -135,3 +135,4 @@ dist
 #Our database URL which shuld be private in dbURL.js
 server/db/dbURL.js
 server/db/uploadTestData.sh
+dbURL.js
