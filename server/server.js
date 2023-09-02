@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const { model } = require('mongoose');
 
 const app = express();
 const PORT = 3000;
@@ -21,3 +22,5 @@ app.use('/api/users', loginRouter);
 app.use('/api/groups');
 
 app.use('/api/itinerary');
+
+module.exports = app;
