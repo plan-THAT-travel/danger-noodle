@@ -1,4 +1,5 @@
-const pool = require('./../db/postgresModel');
+const path = require('path');
+const pool = require(path.join(__dirname, '../db/postgresModel'));
 const itineraryController = {};
 
 /**
@@ -35,7 +36,7 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
 
     const errObj = {
         log: 'itineraryController.verifyUserGroup Error',
-        message: {error: 'itineraryController.verifyUserGroup Error'},
+        message: {err: 'itineraryController.verifyUserGroup Error'},
         status: 404,
     }
     return next({ ...errObj, log: err.message});

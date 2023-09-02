@@ -1,6 +1,6 @@
+const itineraryController = require('./../controllers/itineraryController');
 const express = require('express');
 const router = express.Router();
-const itineraryController = require('./../controllers/itineraryController');
 
 /**
  * @todo make a controller for handling verification of userId and groupId
