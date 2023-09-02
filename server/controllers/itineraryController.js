@@ -28,11 +28,17 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     if (!result.rows) {
       throw new Error(`itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`);
     }
-    
+
     // If we have a row we can move on to the next verification
     return next();
 } catch (err) {
-    return next(err);
+
+    const errObj = {
+        log: 'itineraryController.verifyUserGroup Error',
+        message: {error: 'itineraryController.verifyUserGroup Error'},
+        status: 404,
+    }
+    return next({ ...errObj, log: err.message});
 }
   
 }
