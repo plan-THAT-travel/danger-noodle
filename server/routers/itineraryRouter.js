@@ -15,7 +15,7 @@ const router = express.Router();
  * @returns {Array<Object>}
  * @returns All itineraries for the group Id
  */
-router.get('/:groupId', (req, res) => {
+router.get('/:groupId', (req, res, next) => {res.locals.userId = '3'; return next()}, itineraryController.verifyUserGroup, itineraryController.getAllItineraries, (req, res) => {
     return res.status(200).json(res.locals.itineraries)
 });
 

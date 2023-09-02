@@ -54,18 +54,20 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
 itineraryController.getAllItineraries = async (req, res, next) => {
   //
   try {
-    // Destructure userId and groupId
-    const { userId } = res.locals;
-    const { groupId } = res.params;
+    // Destructure groupId
+    const { groupId } = req.params;
 
     // Write Query to Select itineraries for groupId
     const text = `
     SELECT *
     FROM itinerary_item
     WHERE group_id=($1)
+    ORDER BY date_of_event;
     `;
     const value = [groupId];
-    const result = await (pool.query(text, value));
+    const result = await pool.query(text, value);
+    console.log(result);
+    res.locals.itineraries = result.rows
     
     return next();
   } catch (err) {
