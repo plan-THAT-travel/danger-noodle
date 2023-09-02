@@ -1,10 +1,9 @@
-const path = require('path');
-const pool = require(path.join(__dirname, '../db/postgresModel'));
+const pool = require('./../db/postgresModel');
 const itineraryController = {};
 
 /**
  * If the userId and groupId are not found in our user_group table,
- * we should throw and error because this combination was not found.
+ * we should throw an error because this combination was not found.
  * 
  * @param {Int} req.params.groupId
  * @param {Int} res.locals.userId
@@ -22,7 +21,7 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     const text = `
     SELECT *
     FROM group_members
-    WHERE user_id=($1) AND group_id=($2)
+    WHERE user_id=($1) AND group_id=($2);
     `;
     const values = [userId, groupId];
     const result = await (pool.query(text, values));
@@ -33,10 +32,10 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     // If we have a row we can move on to the next verification
     return next();
 } catch (err) {
-
+  
     const errObj = {
         log: 'itineraryController.verifyUserGroup Error',
-        message: {err: 'itineraryController.verifyUserGroup Error'},
+        message: {error: 'itineraryController.verifyUserGroup Error'},
         status: 404,
     }
     return next({ ...errObj, log: err.message});
@@ -52,8 +51,73 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
  * @returns {Array<Object>} res.locals.itineraries
  * @returns All itineraries for the group Id
  */
-itineraryController.getAllItineraries = (req, res, next) => {
+itineraryController.getAllItineraries = async (req, res, next) => {
   //
+  try {
+    // Destructure userId and groupId
+    const { userId } = res.locals;
+    const { groupId } = res.params;
+
+    // Write Query to Select itineraries for groupId
+    const text = `
+    SELECT *
+    FROM itinerary_item
+    WHERE group_id=($1)
+    `;
+    const value = [groupId];
+    const result = await (pool.query(text, value));
+    
+    return next();
+  } catch (err) {
+    const errObj = {
+      log: 'itineraryController.getAllItineraries Error',
+      message: {error: 'itineraryController.getAllItineraries Error'},
+      status: 404,
+  }
+  return next({ ...errObj, log: err.message});
+  };
+}
+
+itineraryController.addItinerary = async (req, res, next) => {
+  //
+  try {
+    
+  } catch (err) {
+    const errObj = {
+      log: 'itineraryController.addItinerary Error',
+      message: {error: 'itineraryController.addItinerary Error'},
+      status: 404,
+  }
+  return next({ ...errObj, log: err.message});
+  };
+}
+
+itineraryController.updateItinerary = async (req, res, next) => {
+  //
+  try {
+    
+  } catch (err) {
+    const errObj = {
+      log: 'itineraryController.updateItinerary Error',
+      message: {error: 'itineraryController.updateItinerary Error'},
+      status: 404,
+  }
+  return next({ ...errObj, log: err.message});
+  };
+}
+
+itineraryController.deleteItinerary = async (req, res, next) => {
+  //
+  try {
+    
+  } catch (err) {
+    const errObj = {
+      log: 'itineraryController.deleteItinerary Error',
+      message: {error: 'itineraryController.deleteItinerary Error'},
+      status: 404,
+  }
+  return next({ ...errObj, log: err.message});
+  };
 }
 
 module.exports = itineraryController;
