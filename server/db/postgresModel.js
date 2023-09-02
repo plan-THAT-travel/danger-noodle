@@ -1,5 +1,6 @@
 const { Pool } = require('pg');
-const PG_URI = require('dbURL');
+const path = require('path');
+const PG_URI = require(path.join(__dirname, 'dbURL'));
 
 const pool = new Pool({
   connectionString: PG_URI,
