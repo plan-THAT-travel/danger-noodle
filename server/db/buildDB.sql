@@ -80,3 +80,5 @@ Travel Group Members:
 
 ALTER TABLE group_members ADD CONSTRAINT "group_members_fk0" FOREIGN KEY ("user_id") REFERENCES users("_id");
 ALTER TABLE group_members ADD CONSTRAINT "group_members_fk1" FOREIGN KEY ("group_id") REFERENCES travel_group("_id");
+-- Add UNIQUE constraint of user_id + group_id
+ALTER TABLE group_members ADD CONSTRAINT "unique_user_group" UNIQUE ("user_id", "group_id");
