@@ -59,7 +59,13 @@ itineraryController.getAllItineraries = async (req, res, next) => {
     const { groupId } = res.params;
 
     // Write Query to Select itineraries for groupId
-
+    const text = `
+    SELECT *
+    FROM itinerary_item
+    WHERE group_id=($1)
+    `;
+    const value = [groupId];
+    const result = await (pool.query(text, value));
     
     return next();
   } catch (err) {
