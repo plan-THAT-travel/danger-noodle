@@ -1,8 +1,13 @@
+-- 
+DROP TABLE users, travel_group, itinerary_item, group_members;
+
 -- Users table
 CREATE TABLE IF NOT EXISTS users(
     _id serial NOT NULL,
     username varchar NOT NULL,
     password varchar NOT NULL,
+    firstname varchar NOT NULL,
+    lastname varchar NOT NULL,
     CONSTRAINT "users_pk0" PRIMARY KEY ("_id")
 ) WITH (OIDS=FALSE);
 
@@ -32,7 +37,7 @@ CREATE TABLE IF NOT EXISTS group_members(
     _id serial NOT NULL,
     user_id bigint NOT NULL,
     group_id bigint NOT NULL,
-    CONSTRAINT "group_member_pk0"
+    CONSTRAINT "group_member_pk0" PRIMARY KEY ("_id")
 ) WITH (OIDS=FALSE);
 
 /* 
@@ -53,5 +58,5 @@ Travel Group Members:
     - group_id: travel_group
 */
 
-ALTER TABLE group_members ADD CONSTRAINT "group_members_fk0" FOREIGN KEY ("user_id") REFERENCES user("_id");
+ALTER TABLE group_members ADD CONSTRAINT "group_members_fk0" FOREIGN KEY ("user_id") REFERENCES users("_id");
 ALTER TABLE group_members ADD CONSTRAINT "group_members_fk1" FOREIGN KEY ("group_id") REFERENCES travel_group("_id");
