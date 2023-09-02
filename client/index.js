@@ -40,6 +40,7 @@ export default function App() {
       theme: 'outline',
       size: 'large',
     });
+    google.accounts.id.prompt();
   }, []);
 
   return (

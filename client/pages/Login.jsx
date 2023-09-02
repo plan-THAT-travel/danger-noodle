@@ -12,19 +12,21 @@
 import React, { useState } from 'react';
 
 // If we have no user: sign in button
-// if we have a user: show the log out button
+// if we have a user: show the sign out button
 
-function handleSignOut(event) {
-  setUser({});
-  document.getElementById('signInDiv').hidden = false;
-}
+// function handleSignOut(event) {
+//   setUser({});
+//   document.getElementById('signInDiv').hidden = false;
+// }
 
 const Login = props => {
   return (
     <div id='Login'>
-      <h1>I am the App</h1>
+      <h1>Plan It Travel Login Page</h1>
       <div id='signInDiv'></div>
-      <button onClick={e => handleSignOut(e)}>Sign Out</button>
+      {/* {Object.keys(props.user).length != 0 && (
+        <button onClick={e => handleSignOut(e)}>Sign Out</button>
+      )} */}
       {props.user && (
         <div>
           <img src={props.user.picture}></img>
