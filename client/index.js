@@ -27,6 +27,7 @@ export default function App() {
   function handleCallbackResponse(response) {
     const userObject = jwt_decode(response.credential);
     setUser(userObject);
+    console.log(userObject);
     document.getElementById('signInDiv').hidden = true;
   }
 
