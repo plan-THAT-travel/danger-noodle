@@ -83,6 +83,22 @@ itineraryController.getAllItineraries = async (req, res, next) => {
 itineraryController.addItinerary = async (req, res, next) => {
   //
   try {
+    // Destructure itinerary items
+    const { groupId } = req.params;
+    const { title, category, hyperlink, cost, dateOfEvent } = req.body;
+
+    // Write statement to insert 
+    const text = `
+    INSERT INTO itinerary_item (title, category, hyperlink, cost, dateOfEvent, groupId)
+    VALUES ($1, $2, $3, $4, $5, $6);
+    `;
+
+    const values = [title, category, hyperlink, cost, dateOfEvent, groupId];
+    const result = await pool.query(text, values);
+    console.log(result);
+    res.locals.newItinerary = result.rows[0];
+
+    return next();
     
   } catch (err) {
     const errObj = {

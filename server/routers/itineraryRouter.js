@@ -34,9 +34,13 @@ router.get('/:groupId', (req, res, next) => {res.locals.userId = '3'; return nex
  * 
  * @returns response status 201
  */
-router.post('/:groupId/');
+router.post('/:groupId/', itineraryController.getAllItineraries, (req, res) => {
+    return res.status(201).json(res.locals.newItinerary)
+});
 
-router.put('/:groupId/itinerary/:id');
+router.put('/:groupId/itinerary/:id', itineraryController.updateItinerary, (req, res) => {
+    return res.status(201).json(res.locals.updatedItinerary)
+});
 
 /**
  * 
@@ -47,6 +51,8 @@ router.put('/:groupId/itinerary/:id');
  * 
  * @returns successful deletion status
  */
-router.delete('/:groupId/itinerary/:id');
+router.delete('/:groupId/itinerary/:id', itineraryController.deleteItinerary, (req, res => {
+    return res.status(200).json(res.locals.deletedItinerary)
+}));
 
 module.exports = router;
