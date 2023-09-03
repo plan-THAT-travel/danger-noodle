@@ -34,7 +34,7 @@ router.get('/:groupId', (req, res, next) => {res.locals.userId = '3'; return nex
  * 
  * @returns response status 201
  */
-router.post('/:groupId/', itineraryController.getAllItineraries, (req, res) => {
+router.post('/:groupId/', itineraryController.addItinerary, (req, res) => {
     return res.status(201).json(res.locals.newItinerary)
 });
 
