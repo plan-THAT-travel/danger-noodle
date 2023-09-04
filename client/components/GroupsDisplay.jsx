@@ -13,14 +13,14 @@ import React from 'react';
 import Group from './Group.jsx';
 import { useSelector } from 'react-redux';
 
-// initialState = { GroupName="", travelDestination = "", startDate="", endDate="", groupId = "", groupList = []};
+// initialState = { groupName="", travelDestination = "", startDate="", endDate="", groupId = "", groupList = []};
 
 const GroupsDisplay = () => {
   const groups = useSelector(state => state.groups);
   const displayGroups = [];
 
   for (let i = 0; i < groups.groupList.length; i++) {
-    displayGroups.push(<Group key={groups.groupList.groupId} />);
+    displayGroups.push(<Group index={i} key={groups.groupList.groupId} />);
   }
 
   return (

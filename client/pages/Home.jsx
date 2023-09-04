@@ -10,12 +10,15 @@
  */
 
 import React from 'react';
-import Navbar from './Navbar';
+import Navbar from '../components/Navbar';
+import GroupMainContainer from '../containers/GroupMainContainer';
 
 const Home = () => {
   return (
     <div>
       <Navbar />
+      {/* Main container for all User components */}
+      <GroupMainContainer />
     </div>
   );
 };
