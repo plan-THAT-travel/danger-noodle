@@ -1,6 +1,4 @@
 -- 
-DROP TABLE users, user_session, travel_group, itinerary_item, group_members;
-
 CREATE TABLE IF NOT EXISTS user_session(
     _id serial NOT NULL,
     cookie_id varchar NOT NULL,
