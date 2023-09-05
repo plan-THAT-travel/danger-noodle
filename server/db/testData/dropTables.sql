@@ -1,1 +1,1 @@
-DROP TABLE users, user_session, travel_group, itinerary_item, group_members;
+DROP TABLE itinerary_item, user_session, group_members, travel_group,  users;

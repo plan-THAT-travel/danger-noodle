@@ -25,14 +25,14 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     `;
     const values = [userId, groupId];
     const result = await (pool.query(text, values));
-    if (!result.rows) {
+
+    if (!result.rows.length) {
       throw new Error(`itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`);
     }
 
     // If we have a row we can move on to the next verification
     return next();
 } catch (err) {
-  
     const errObj = {
         log: 'itineraryController.verifyUserGroup Error',
         message: {error: 'itineraryController.verifyUserGroup Error'},
@@ -46,7 +46,7 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
 /**
  * Gets the itinerary for the userId and groupId
  * 
- * @param {Int} res.locals.groupId
+ * @param {Int} req.params.groupId
  * 
  * @returns {Array<Object>} res.locals.itineraries
  * @returns All itineraries for the group Id
@@ -66,7 +66,6 @@ itineraryController.getAllItineraries = async (req, res, next) => {
     `;
     const value = [groupId];
     const result = await pool.query(text, value);
-    console.log(result);
     res.locals.itineraries = result.rows
     
     return next();
