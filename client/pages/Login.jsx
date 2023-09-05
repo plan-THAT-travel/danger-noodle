@@ -23,7 +23,7 @@ const Login = () => {
     const userObject = jwt_decode(response.credential);
     setUser(userObject);
     console.log(userObject);
-    fetch('/api/users', {
+    fetch('/api/users/login', {
       method: 'POST',
       body: JSON.stringify(userObject),
       headers: {
@@ -31,8 +31,9 @@ const Login = () => {
       },
     })
       .then(response => response.json())
-      .then(json => console.log(json));
-    navigate('/Home');
+      .then(json => console.log(json)).then(() => {
+        navigate('/Home');
+      });
   }
 
   useEffect(() => {
