@@ -21,8 +21,8 @@ function Navbar() {
       <ul>
         <li id='nav-bar'>
           <Link to='/'>Login</Link>
-          <Link to='/Home'>Home</Link>
-          <Link to='/Trip'>Trips</Link>
+          <Link to='/home'>Home</Link>
+          <Link to='/trip'>Trips</Link>
         </li>
       </ul>
     </nav>
