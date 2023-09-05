@@ -11,12 +11,15 @@ router.get('/', loginController.verifyUser, groupsController.getGroups,
 // Verify user middleware checks if user is logged in, if so ->
 // grab id, first, and last name and return in an array
 
+router.post('/:users._id/creategroup', groupsController.createGroup, 
+  (req, res) => {
+  res.status(200).json(res.locals.groupId);
+});
 
-router.post('/:user_id/group/:_id', groupsController.addUserToGroup, 
+
+router.post('/:users._id/group/:_id', groupsController.addUserToGroup, 
   (req, res) => {
  
-
-
 
 })
 
