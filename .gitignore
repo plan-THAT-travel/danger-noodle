@@ -133,9 +133,8 @@ dist
 .DS_store
 
 #Our database URL which should be private in dbURL.js
-server/db/dbURL.js
-server/db/uploadTestData.sh
-dbURL.js
+server/secrets/
+secrets*
 
 #Our Google Client ID URL which should be private in clientURLs.js
 client/pages/clientURLs.js
