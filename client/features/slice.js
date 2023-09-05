@@ -83,9 +83,14 @@ export const featureSlice = createSlice({
       state.users.user = action.payload.name;
       return state;
     },
+    setItineraryItems: (state, action) => {
+        if (Array.isArray(action.payload)) {
+            state.activityList = action.payload;
+        }
+    }
   },
 });
 
-export const { ADD_GROUP, UPDATE_USER } = featureSlice.actions;
+export const { ADD_GROUP, UPDATE_USER, setItineraryItems } = featureSlice.actions;
 
 export default featureSlice.reducer;
