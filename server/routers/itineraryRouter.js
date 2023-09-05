@@ -51,8 +51,8 @@ router.put('/:groupId/itinerary/:id', itineraryController.updateItinerary, (req,
  * 
  * @returns successful deletion status
  */
-router.delete('/:groupId/itinerary/:id', itineraryController.deleteItinerary, (req, res => {
+router.delete('/:groupId/itinerary/:id', itineraryController.deleteItinerary, (req, res) => {
     return res.status(200).json(res.locals.deleteItinerary)
-}));
+});
 
 module.exports = router;
