@@ -17,7 +17,7 @@ groupsController.getGroups = async (req, res, next) => {
     }
     catch (err) {
         const errObj = {
-            log: 'groupsController.getAllUsers Error',
+            log: 'groupsController.getGroups Error',
             status: 404,
             message: { err: 'An error occurred' },
         };
@@ -26,8 +26,12 @@ groupsController.getGroups = async (req, res, next) => {
 };
 
 groupsController.createGroup = async (req, res, next) => {
+  const { groupName, travelDestination } = req.body;
+  const { users_id } = req.params;
 
+  res.locals.groupId = 3;
 
+  const text = `INSERT INTO travel_group`
 
 };
 
@@ -35,12 +39,13 @@ groupsController.createGroup = async (req, res, next) => {
 groupsController.addUserToGroup = async (req, res, next) => {
     // post request adds users to a group
     // takes in a user id and a group id
-    const userID = req.body.user_id;
-    const groupID = req.body.group_id;
-    console.log('this is user ID', userID, 'this is groupID', groupID);
+    const { user_id, group_id } = req.body;
+
+    console.log('this is user ID', user_id, 'this is groupID', group_id);
     // insert user id and group id values into group members table
+
     const text = `INSERT INTO group_members (user_id, group_id) 
-    VALUES (${userID}, ${groupID});`
+    VALUES (${user_id}, ${group_id});`
 
 };
 
