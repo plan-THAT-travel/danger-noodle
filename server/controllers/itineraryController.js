@@ -4,10 +4,10 @@ const itineraryController = {};
 /**
  * If the userId and groupId are not found in our user_group table,
  * we should throw an error because this combination was not found.
- * 
+ *
  * @param {Int} req.params.groupId
  * @param {Int} res.locals.userId
- * 
+ *
  * @returns res.locals
  */
 itineraryController.verifyUserGroup = async (req, res, next) => {
@@ -24,30 +24,30 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     WHERE user_id=($1) AND group_id=($2);
     `;
     const values = [userId, groupId];
-    const result = await (pool.query(text, values));
+    const result = await pool.query(text, values);
     if (!result.rows) {
-      throw new Error(`itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`);
+      throw new Error(
+        `itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`
+      );
     }
 
     // If we have a row we can move on to the next verification
     return next();
-} catch (err) {
-  
+  } catch (err) {
     const errObj = {
-        log: 'itineraryController.verifyUserGroup Error',
-        message: {error: 'itineraryController.verifyUserGroup Error'},
-        status: 404,
-    }
-    return next({ ...errObj, log: err.message});
-}
-  
-}
+      log: 'itineraryController.verifyUserGroup Error',
+      message: { error: 'itineraryController.verifyUserGroup Error' },
+      status: 404,
+    };
+    return next({ ...errObj, log: err.message });
+  }
+};
 
 /**
  * Gets the itinerary for the userId and groupId
- * 
+ *
  * @param {Int} res.locals.groupId
- * 
+ *
  * @returns {Array<Object>} res.locals.itineraries
  * @returns All itineraries for the group Id
  */
@@ -67,18 +67,18 @@ itineraryController.getAllItineraries = async (req, res, next) => {
     const value = [groupId];
     const result = await pool.query(text, value);
     console.log(result);
-    res.locals.itineraries = result.rows
-    
+    res.locals.itineraries = result.rows;
+
     return next();
   } catch (err) {
     const errObj = {
       log: 'itineraryController.getAllItineraries Error',
-      message: {error: 'itineraryController.getAllItineraries Error'},
+      message: { error: 'itineraryController.getAllItineraries Error' },
       status: 404,
+    };
+    return next({ ...errObj, log: err.message });
   }
-  return next({ ...errObj, log: err.message});
-  };
-}
+};
 
 itineraryController.addItinerary = async (req, res, next) => {
   //
@@ -87,7 +87,7 @@ itineraryController.addItinerary = async (req, res, next) => {
     const { groupId } = req.params;
     const { title, category, hyperlink, cost, dateOfEvent } = req.body;
 
-    // Write statement to insert 
+    // Write statement to insert
     const text = `
     INSERT INTO itinerary_item (title, category, hyperlink, cost, dateOfEvent, groupId)
     VALUES ($1, $2, $3, $4, $5, $6);
@@ -99,43 +99,55 @@ itineraryController.addItinerary = async (req, res, next) => {
     res.locals.newItinerary = result.rows[0];
 
     return next();
-    
   } catch (err) {
     const errObj = {
       log: 'itineraryController.addItinerary Error',
-      message: {error: 'itineraryController.addItinerary Error'},
+      message: { error: 'itineraryController.addItinerary Error' },
       status: 404,
+    };
+    return next({ ...errObj, log: err.message });
   }
-  return next({ ...errObj, log: err.message});
-  };
-}
+};
 
 itineraryController.updateItinerary = async (req, res, next) => {
-  //
   try {
-    
+    // Destructure
+    const { groupId } = req.params;
+    const { title, category, hyperlink, cost, dateOfEvent } = req.body;
+
+    // Write statement to update
+    const text = `
+    UPDATE itinerary_item
+  `;
+    return next();
   } catch (err) {
     const errObj = {
       log: 'itineraryController.updateItinerary Error',
-      message: {error: 'itineraryController.updateItinerary Error'},
+      message: { error: 'itineraryController.updateItinerary Error' },
       status: 404,
+    };
+    return next({ ...errObj, log: err.message });
   }
-  return next({ ...errObj, log: err.message});
-  };
-}
+};
 
 itineraryController.deleteItinerary = async (req, res, next) => {
-  //
+
   try {
-    
+      //
+  const text = `
+
+  `;
+    return next();
+  
+    return next();
   } catch (err) {
     const errObj = {
       log: 'itineraryController.deleteItinerary Error',
-      message: {error: 'itineraryController.deleteItinerary Error'},
+      message: { error: 'itineraryController.deleteItinerary Error' },
       status: 404,
+    };
+    return next({ ...errObj, log: err.message });
   }
-  return next({ ...errObj, log: err.message});
-  };
-}
+};
 
 module.exports = itineraryController;

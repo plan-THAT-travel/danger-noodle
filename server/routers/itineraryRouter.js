@@ -39,7 +39,7 @@ router.post('/:groupId/', itineraryController.addItinerary, (req, res) => {
 });
 
 router.put('/:groupId/itinerary/:id', itineraryController.updateItinerary, (req, res) => {
-    return res.status(201).json(res.locals.updatedItinerary)
+    return res.status(201).json(res.locals.updateItinerary)
 });
 
 /**
@@ -52,7 +52,7 @@ router.put('/:groupId/itinerary/:id', itineraryController.updateItinerary, (req,
  * @returns successful deletion status
  */
 router.delete('/:groupId/itinerary/:id', itineraryController.deleteItinerary, (req, res => {
-    return res.status(200).json(res.locals.deletedItinerary)
+    return res.status(200).json(res.locals.deleteItinerary)
 }));
 
 module.exports = router;
