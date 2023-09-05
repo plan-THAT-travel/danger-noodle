@@ -128,3 +128,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+#DS store
+.DS_store
+
+#Our database URL which should be private in dbURL.js
+server/secrets/
+secrets*
+
+#Our Google Client ID URL which should be private in clientURLs.js
+client/pages/clientURLs.js
+clientURLs.js
