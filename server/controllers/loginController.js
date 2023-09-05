@@ -1,4 +1,4 @@
-const pool = require(path.join(__dirname, './../db/postgresModel'));
+const pool = require('./../db/postgresModel');
 const loginController = {};
 
 
