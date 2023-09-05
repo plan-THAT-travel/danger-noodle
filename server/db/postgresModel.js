@@ -1,6 +1,9 @@
 const { Pool } = require('pg');
 const path = require('path');
-const PG_URI = require(path.join(__dirname, 'dbURL'));
+const fs = require('fs');
+
+const secrets = JSON.parse(fs.readFileSync(path.join(__dirname, '../secrets/secrets.json')));
+const PG_URI = secrets.postgres;
 
 const pool = new Pool({
   connectionString: PG_URI,

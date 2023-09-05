@@ -7,11 +7,12 @@
         "start": "NODE_ENV=production node server/server.js",
         "build": "NODE_ENV=production webpack -w",
         "dev": "NODE_ENV=development concurrently \"webpack serve --open\" \"nodemon server/server.js\"",
-        "test": "jest --verbose"
+        "test": "jest --verbose",
+        "build_test_db": "./server/db/uploadTestData.sh"
     },
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "https://github.com/plan-IT-travel/travelapp"
     },
     "author": "Jonathan Gray",
     "license": "ISC",

@@ -7,19 +7,17 @@ describe('groupController', () => {
     beforeEach(() => {
         req = {};
         res = {locals: {userId: '2'}};
-        next = function(errObj) {
-            return errObj;
-        }
+        next = jest.fn()
     });
     describe('getGroups', () => {
 
         it('Should call next without any arguments', async() => {
-            const result = await groupsController.getGroups(req, res, next);
-            expect(result).toEqual(undefined);
+            await groupsController.getGroups(req, res, next);
+            expect(next.mock.calls[0][0]).toEqual(undefined);
         })
 
         it('Should get all groups belonging to a user based on user_id', async() => {
-            const result = await groupsController.getGroups(req, res, next);
+            await groupsController.getGroups(req, res, next);
             // Expect the groups to be of length 2 and have group_ids 1 and 2
             expect(res.locals.userGroups).toBeInstanceOf(Array);
             expect(res.locals.userGroups.length).toEqual(2);
@@ -28,7 +26,7 @@ describe('groupController', () => {
 
         it('Should return an empty array if the user belongs to no groups', async() => {
             res = {locals: {userId: '4'}};
-            const result = await groupsController.getGroups(req, res, next);
+            await groupsController.getGroups(req, res, next);
             expect(res.locals.userGroup).toEqual([]);
         })
     })
@@ -69,8 +67,8 @@ describe('groupController', () => {
 
         it('Should throw an error if the user exists as a member of the group', async() => {
             req = {body: {userId: '2', groupId: '1'}};
-            const result = await groupsController.addUser(req, res, next);
-            expect(result).toBeInstanceOf(Object);
+            await groupsController.addUser(req, res, next);
+            expect(next.mock.calls[0][0]).toBeInstanceOf(Object);
         })
 
         xit('Should throw an error if the user does not exist in the database', ()=>{});
