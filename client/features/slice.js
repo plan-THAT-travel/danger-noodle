@@ -1,10 +1,41 @@
+/**
+ * ************************************
+ *
+ * @module  slice.js
+ * @author  Plan It Travel
+ * @date    9-4-23
+ * @description reducer or slice for user/group/activity data
+ *
+ * ************************************
+ */
+
 import { createSlice } from '@reduxjs/toolkit';
 
+//this state governs the state of the entire app
 const initialState = {
-    // stuff to add to state
-    itineraries: [],
-
-}
+  groupId: 1,
+  newGroup: {
+    groupName: '',
+    travelDestination: '',
+    dates: '',
+    groupId: '',
+  },
+  groupList: [],
+  newActivity: {
+    activityName: '',
+    activityDestination: '',
+    date: '',
+    times: '',
+    activityId: '',
+    participantList: [],
+    link: '',
+    description: '',
+  },
+  activityList: [],
+  users: {
+    userName: '',
+  },
+};
 
 /*
 
@@ -32,15 +63,29 @@ Update state in the itinerary container
 */
 
 export const featureSlice = createSlice({
-    name: 'feature',
-    initialState,
-    reducers: {
-        setItineraryItems: (state, action) => {
-            state.itineraries = action.payload;
-        }
-    }
-})
+  name: 'feature',
+  initialState,
+  reducers: {
+    ADD_GROUP: (state, action) => {
+      // post to server with action.payload then create newGroup from response?
 
-export const {/* */} = featureSlice.actions;
+      const newGroup = {
+        groupName: action.payload.groupName,
+        // groupId: response with group_id?
+        travelDestination: action.payload.travelDestination,
+        dates: action.payload.dates,
+      };
+
+      state.groups.groupList.push(newGroup);
+      return state;
+    },
+    UPDATE_USER: (state, action) => {
+      state.users.user = action.payload.name;
+      return state;
+    },
+  },
+});
+
+export const { ADD_GROUP, UPDATE_USER } = featureSlice.actions;
 
 export default featureSlice.reducer;
