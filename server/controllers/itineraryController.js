@@ -59,10 +59,10 @@ itineraryController.getAllItineraries = async (req, res, next) => {
 
     // Write Query to Select itineraries for groupId
     const text = `
-    SELECT *
+    SELECT _id, group_id, title, category, hyperlink, cost,  to_char(date_of_event, 'DD Mon YYYY hh:mm') as date_of_event
     FROM itinerary_item
     WHERE group_id=($1)
-    ORDER BY date_of_event;
+    ORDER BY itinerary_item.date_of_event ASC;
     `;
     const value = [groupId];
     const result = await pool.query(text, value);
@@ -154,8 +154,8 @@ itineraryController.deleteItinerary = async (req, res, next) => {
 
     const value = [id];
     const result = await pool.query(text, value);
-    
-    res.locals.deleteItinerary = result.rows[0]
+
+    res.locals.deleteItinerary = result.rows[0];
     return next();
   } catch (err) {
     const errObj = {

@@ -18,7 +18,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Trip from './pages/Trip';
 import store from './store';
-// import styles from './scss/application.scss'; // eslint-disable-line no-unused-vars
+import styles from './styles/styles.scss'; // eslint-disable-line no-unused-vars
 
 export default function App() {
   return (
