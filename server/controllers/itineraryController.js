@@ -85,15 +85,15 @@ itineraryController.addItinerary = async (req, res, next) => {
   try {
     // Destructure itinerary items
     const { groupId } = req.params;
-    const { title, category, hyperlink, cost, dateOfEvent } = req.body;
+    const { title, category, hyperlink, cost, date_of_event } = req.body;
 
     // Write statement to insert
     const text = `
-    INSERT INTO itinerary_item (title, category, hyperlink, cost, dateOfEvent, groupId)
+    INSERT INTO itinerary_item (title, category, hyperlink, cost, date_of_event, groupId)
     VALUES ($1, $2, $3, $4, $5, $6);
     `;
 
-    const values = [title, category, hyperlink, cost, dateOfEvent, groupId];
+    const values = [title, category, hyperlink, cost, date_of_event, groupId];
     const result = await pool.query(text, values);
     console.log(result);
     res.locals.newItinerary = result.rows[0];
@@ -113,12 +113,23 @@ itineraryController.updateItinerary = async (req, res, next) => {
   try {
     // Destructure
     const { groupId } = req.params;
-    const { title, category, hyperlink, cost, dateOfEvent } = req.body;
+    const { title, category, hyperlink, cost, date_of_event } = req.body;
 
     // Write statement to update
     const text = `
     UPDATE itinerary_item
+    SET
+      title = $1,
+      category = $2,
+      hyperlink = $3,
+      cost = $4,
+      date_of_event = $5
+    WHERE groupId = $6
   `;
+  const values = [title, category, hyperlink, cost, date_of_event, groupId];
+  const result = await pool.query(text, values);
+
+  res.locals.updateItinerary = result.rows[0];
     return next();
   } catch (err) {
     const errObj = {
