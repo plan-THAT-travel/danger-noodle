@@ -9,30 +9,52 @@
  * ************************************
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import GCID_URI from './clientURLs';
+import jwt_decode from 'jwt-decode';
 
-// If we have no user: sign in button
-// if we have a user: show the sign out button
+const Login = () => {
+  const [user, setUser] = useState({}); // currently using state, but need to use Redux store instead?
 
-// function handleSignOut(event) {
-//   setUser({});
-//   document.getElementById('signInDiv').hidden = false;
-// }
+  const navigate = useNavigate();
 
-const Login = props => {
+  function handleCallbackResponse(response) {
+    const userObject = jwt_decode(response.credential);
+    setUser(userObject);
+    console.log(userObject);
+    fetch('/api/users', {
+      method: 'POST',
+      body: JSON.stringify(userObject),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then(response => response.json())
+      .then(json => console.log(json));
+    navigate('/Home');
+  }
+
+  useEffect(() => {
+    /* global google */
+    google.accounts.id.initialize({
+      client_id: GCID_URI,
+      login_uri: '/',
+      state_cookie_domain: '/',
+      callback: handleCallbackResponse,
+    });
+
+    google.accounts.id.renderButton(document.getElementById('signInDiv'), {
+      theme: 'outline',
+      size: 'large',
+    });
+    google.accounts.id.prompt();
+  }, []);
+
   return (
     <div id='Login'>
-      <h1>Plan It Travel Login Page</h1>
+      <h1>Plan It Travel</h1>
       <div id='signInDiv'></div>
-      {/* {Object.keys(props.user).length != 0 && (
-        <button onClick={e => handleSignOut(e)}>Sign Out</button>
-      )} */}
-      {props.user && (
-        <div>
-          <img src={props.user.picture}></img>
-          <h3>{props.user.name}</h3>
-        </div>
-      )}
     </div>
   );
 };
