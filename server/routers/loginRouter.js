@@ -12,8 +12,8 @@ router.post('/', loginController.createUser, (req, res) => {
 });
 
 
-router.post('/',
-loginController.getUser,
+router.post('/login',
+loginController.verifyUser,
 (req, res) => res.status(200).json({}));
 
 

@@ -4,7 +4,7 @@ const loginController = require('./../controllers/loginController');
 const groupsController = require('./../controllers/groupsController');
 
 // get request for all users
-router.get('/', loginController.verifyUser, groupsController.getAllUsers, 
+router.get('/', loginController.verifyUser, groupsController.getGroups, 
   (req, res) => {
     res.status(200).json(res.locals.allUsers); 
 }); 
