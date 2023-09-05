@@ -84,16 +84,17 @@ itineraryController.addItinerary = async (req, res, next) => {
   //
   try {
     // Destructure itinerary items
-    const { groupId } = req.params;
-    const { title, category, hyperlink, cost, date_of_event } = req.body;
+    console.log(req.body);
+    const { group_id, title, category, hyperlink, cost, date_of_event } =
+      req.body;
 
     // Write statement to insert
     const text = `
-    INSERT INTO itinerary_item (title, category, hyperlink, cost, date_of_event, groupId)
+    INSERT INTO itinerary_item (group_id, title, category, hyperlink, cost, date_of_event)
     VALUES ($1, $2, $3, $4, $5, $6);
     `;
 
-    const values = [title, category, hyperlink, cost, date_of_event, groupId];
+    const values = [group_id, title, category, hyperlink, cost, date_of_event];
     const result = await pool.query(text, values);
     console.log(result);
     res.locals.newItinerary = result.rows[0];
@@ -112,7 +113,9 @@ itineraryController.addItinerary = async (req, res, next) => {
 itineraryController.updateItinerary = async (req, res, next) => {
   try {
     // Destructure
-    const { groupId } = req.params;
+    console.log(req.params);
+    // const { groupId } = req.params;
+    // const { id } = req.params;
     const { title, category, hyperlink, cost, date_of_event } = req.body;
 
     // Write statement to update
@@ -124,32 +127,35 @@ itineraryController.updateItinerary = async (req, res, next) => {
       hyperlink = $3,
       cost = $4,
       date_of_event = $5
-    WHERE groupId = $6
+    WHERE group_Id = _id;
   `;
-  const values = [title, category, hyperlink, cost, date_of_event, groupId];
-  const result = await pool.query(text, values);
+    const values = [title, category, hyperlink, cost, date_of_event];
+    const result = await pool.query(text, values);
 
-  res.locals.updateItinerary = result.rows[0];
+    res.locals.updateItinerary = result.rows[0];
     return next();
   } catch (err) {
     const errObj = {
       log: 'itineraryController.updateItinerary Error',
       message: { error: 'itineraryController.updateItinerary Error' },
-      status: 404,
+      status: 500,
     };
     return next({ ...errObj, log: err.message });
   }
 };
 
 itineraryController.deleteItinerary = async (req, res, next) => {
-
   try {
-      //
-  const text = `
-
+    const { id } = req.params;
+    const text = `
+    DELETE FROM itinerary_items
+    WHERE id = $1;
   `;
-    return next();
-  
+
+    const value = [id];
+    const result = await pool.query(text, value);
+    
+    res.locals.deleteItinerary = result.rows[0]
     return next();
   } catch (err) {
     const errObj = {
