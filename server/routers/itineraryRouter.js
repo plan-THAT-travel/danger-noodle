@@ -18,6 +18,7 @@ const router = express.Router();
 router.get(
   '/:groupId',
   (req, res, next) => {
+    // !INCOMPLETE - Hard coded userId?
     res.locals.userId = '3';
     return next();
   },

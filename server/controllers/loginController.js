@@ -17,31 +17,33 @@ loginController.verifyUser = async (req, res, next) => {
 
         // Create a new user in our database
         console.log("this is request body", req.body);
-        const text = `SELECT _id FROM users WHERE username = ($1);`
+        const text = `SELECT username FROM users WHERE username = ($1);`
         const values = [email];
-    
-        const result = await pool.query(text, values);
-        const user_id = result.rows[0];
-        console.log('this is the query text', user_id);
 
-        if (user_id === undefined) {
+        const result = await pool.query(text, values);
+        const username = result.rows[0];
+        console.log('this is the query text', username);
+
+        if (username === undefined) {
             // create a new user
-            const createUserQuery = `INSERT INTO users (firstname, lastname, username, password) VALUES ($1, $2, $3, $4) RETURNING _id;`;
+            const createUserQuery = `INSERT INTO users (firstname, lastname, username, password) VALUES ($1, $2, $3, $4) RETURNING username;`;
             const values2 = [given_name, family_name, email, sub];
             const poolResponse = await pool.query(createUserQuery, values2);
 
             console.log('created a user in our database', createUserQuery);
-            const newUserId = poolResponse.rows[0];
-            res.locals.userId = newUserId._id;
+            const newUser = poolResponse.rows[0];
+            res.locals.username = newUser;
         }
         else {
-            res.locals.userId = user_id._id;
+            res.locals.username = username;
         };
+        console.log(res.locals.username);
         next();
     }
-    catch(err) {
+    catch (err) {
         const errObj = {
-            log: err,
+            log: 'loginController.verifyUser Error',
+            // !FIX - 404 Error doesn't look like the correct error code
             status: 404,
             message: { err: 'An error occurred' },
         };

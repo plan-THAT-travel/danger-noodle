@@ -27,7 +27,7 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     const result = await pool.query(text, values);
     if (!result.rows.length) {
       throw new Error(
-        `itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`
+        `itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`,
       );
     }
 
@@ -37,6 +37,7 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     const errObj = {
       log: 'itineraryController.verifyUserGroup Error',
       message: { error: 'itineraryController.verifyUserGroup Error' },
+      // !FIX - 404 Error doesn't look like the correct error code
       status: 404,
     };
     return next({ ...errObj, log: err.message });
@@ -74,6 +75,7 @@ itineraryController.getAllItineraries = async (req, res, next) => {
     const errObj = {
       log: 'itineraryController.getAllItineraries Error',
       message: { error: 'itineraryController.getAllItineraries Error' },
+      // !FIX - 404 Error doesn't look like the correct error code
       status: 404,
     };
     return next({ ...errObj, log: err.message });
@@ -104,6 +106,7 @@ itineraryController.addItinerary = async (req, res, next) => {
     const errObj = {
       log: 'itineraryController.addItinerary Error',
       message: { error: 'itineraryController.addItinerary Error' },
+      // !FIX - 404 Error doesn't look like the correct error code
       status: 404,
     };
     return next({ ...errObj, log: err.message });
@@ -138,6 +141,7 @@ itineraryController.updateItinerary = async (req, res, next) => {
     const errObj = {
       log: 'itineraryController.updateItinerary Error',
       message: { error: 'itineraryController.updateItinerary Error' },
+      // !FIX - 500 Error doesn't look like the correct error code
       status: 500,
     };
     return next({ ...errObj, log: err.message });
