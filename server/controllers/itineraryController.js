@@ -66,7 +66,6 @@ itineraryController.getAllItineraries = async (req, res, next) => {
     ORDER BY itinerary_item.date_of_event ASC;`;
     const value = [groupId];
     const result = await pool.query(text, value);
-    console.log(result);
 
     res.locals.itineraries = result.rows;
 
@@ -86,20 +85,20 @@ itineraryController.addItinerary = async (req, res, next) => {
   try {
     // Destructure itinerary items
     console.log(req.body);
-    const { group_id, title, category, hyperlink, cost, date_of_event } =
-      req.body;
+    const { groupId } = req.params;
+    const { title, category, hyperlink, cost, date_of_event } = req.body;
 
     // Write statement to insert
     const text = `
     INSERT INTO itinerary_item (group_id, title, category, hyperlink, cost, date_of_event)
-    VALUES ($1, $2, $3, $4, $5, $6);
+    VALUES ($1, $2, $3, $4, $5, $6)
+    RETURNING title, category, hyperlink, cost, date_of_event;
     `;
 
-    const values = [group_id, title, category, hyperlink, cost, date_of_event];
+    const values = [groupId, title, category, hyperlink, cost, date_of_event];
     const result = await pool.query(text, values);
-    console.log(result);
-    res.locals.newItinerary = result.rows[0];
 
+    res.locals.newEvent = result.rows[0];
     return next();
   } catch (err) {
     const errObj = {
@@ -114,8 +113,7 @@ itineraryController.addItinerary = async (req, res, next) => {
 itineraryController.updateItinerary = async (req, res, next) => {
   try {
     // Destructure
-    // const { groupId } = req.params;
-    // const { id } = req.params;
+    const { groupId, id } = req.params;
     const { title, category, hyperlink, cost, date_of_event } = req.body;
 
     // Write statement to update
@@ -127,9 +125,18 @@ itineraryController.updateItinerary = async (req, res, next) => {
       hyperlink = $3,
       cost = $4,
       date_of_event = $5
-    WHERE group_Id = _id;
+    WHERE group_Id = $6 AND _id = $7
+    RETURNING title, category, hyperlink, cost, date_of_event;
   `;
-    const values = [title, category, hyperlink, cost, date_of_event];
+    const values = [
+      title,
+      category,
+      hyperlink,
+      cost,
+      date_of_event,
+      groupId,
+      id,
+    ];
     const result = await pool.query(text, values);
 
     res.locals.updateItinerary = result.rows[0];
@@ -146,16 +153,16 @@ itineraryController.updateItinerary = async (req, res, next) => {
 
 itineraryController.deleteItinerary = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { groupId, id } = req.params;
     const text = `
-    DELETE FROM itinerary_items
-    WHERE id = $1;
+    DELETE FROM itinerary_item
+    WHERE _id = $1 AND group_id = $2;
   `;
 
-    const value = [id];
-    const result = await pool.query(text, value);
+    const value = [id, groupId];
+    await pool.query(text, value);
 
-    res.locals.deleteItinerary = result.rows[0];
+    res.locals.deleteItinerary = `Deleted Itinerary Event ${id} from Group ${groupId}`;
     return next();
   } catch (err) {
     const errObj = {
