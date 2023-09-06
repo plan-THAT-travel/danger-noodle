@@ -1,4 +1,4 @@
-const pool = require("../db/postgresModel");
+const pool = require('../db/postgresModel');
 const groupsController = {};
 
 /**
@@ -23,7 +23,7 @@ groupsController.getAllGroups = async (req, res, next) => {
       res.locals.allGroups = allGroups.rows;
     } else {
       const text =
-        "SELECT _id, owner_id, group_name, travel_destination FROM travel_group;";
+        'SELECT _id, owner_id, group_name, travel_destination FROM travel_group;';
       const allGroups = await pool.query(text);
       res.locals.allGroups = allGroups.rows;
     }
@@ -33,7 +33,7 @@ groupsController.getAllGroups = async (req, res, next) => {
     const errObj = {
       log: `groupsController.getAllGroups Error: ${err}`,
       status: 404,
-      message: { err: "Error: groupsController.getAllGroups" },
+      message: { err: 'Error: groupsController.getAllGroups' },
     };
     return next({ ...errObj });
   }
@@ -66,7 +66,7 @@ groupsController.createGroup = async (req, res, next) => {
     const errObj = {
       log: `groupsController.createGroup Error: ${err}`,
       status: 404,
-      message: { err: "An error occurred" },
+      message: { err: 'An error occurred' },
     };
     return next({ ...errObj });
   }
@@ -115,7 +115,7 @@ groupsController.updateGroup = async (req, res, next) => {
     const errObj = {
       log: `groupsController.updateGroup Error: ${err}`,
       status: 404,
-      message: { err: "Error: groupsController.updateGroup" },
+      message: { err: 'Error: groupsController.updateGroup' },
     };
     return next({ ...errObj });
   }
@@ -150,7 +150,7 @@ groupsController.getAllUsersByGroupId = async (req, res, next) => {
     const errObj = {
       log: `groupsController.getAllUsersByGroupID Error: ${err}`,
       status: 404,
-      message: { err: "Error: groupsController.getAllUsersByGroupId" },
+      message: { err: 'Error: groupsController.getAllUsersByGroupId' },
     };
     return next({ ...errObj });
   }
@@ -176,9 +176,9 @@ groupsController.addUserToGroupId = async (req, res, next) => {
     return next();
   } catch (err) {
     const errObj = {
-      log: "groupsController.addUserToGroupId Error",
+      log: 'groupsController.addUserToGroupId Error',
       status: 404,
-      message: { err: "Error: groupsController.addUserToGroupId" },
+      message: { err: 'Error: groupsController.addUserToGroupId' },
     };
     return next({ ...errObj });
   }
@@ -199,7 +199,7 @@ groupsController.removeGroup = async (req, res, next) => {
     const errObj = {
       log: `groupsController.removeGroup Error: ${err}`,
       status: 404,
-      message: { err: "Error: groupsController.removeGroup" },
+      message: { err: 'Error: groupsController.removeGroup' },
     };
     return next({ ...errObj });
   }
@@ -220,7 +220,7 @@ groupsController.removeUserByGroupId = async (req, res, next) => {
     const errObj = {
       log: `groupsController.removeUserByGroupId Error: ${err}`,
       status: 404,
-      message: { err: "Error: groupsController.removeUserByGroupId" },
+      message: { err: 'Error: groupsController.removeUserByGroupId' },
     };
     return next({ ...errObj });
   }

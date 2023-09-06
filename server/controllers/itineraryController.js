@@ -28,7 +28,7 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
 
     if (!result.rows.length) {
       throw new Error(
-        `itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`,
+        `itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`
       );
     }
 
@@ -63,8 +63,7 @@ itineraryController.getAllItineraries = async (req, res, next) => {
     SELECT _id, group_id, title, category, hyperlink, cost,  to_char(date_of_event, 'DD Mon YYYY hh:mm') as date_of_event
     FROM itinerary_item
     WHERE group_id=($1)
-    ORDER BY itinerary_item.date_of_event ASC;
-    `;
+    ORDER BY itinerary_item.date_of_event ASC;`;
     const value = [groupId];
     const result = await pool.query(text, value);
     console.log(result);

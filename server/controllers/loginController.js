@@ -1,55 +1,51 @@
 const pool = require('./../db/postgresModel');
 const loginController = {};
 
-
 loginController.verifyUser = async (req, res, next) => {
-    try {
-        // Deconstruct username and password
-        const { given_name, family_name, email, sub } = req.body;
-        // Check if either username or password fields are empty, if so throw an error 
-        // if (username === '' || password === '') {
-        //     return next({
-        //         log: 'userController.createUser: Missing username or password',
-        //         status: 400,
-        //         message: { err: 'Mandatory field is missing' }
-        //     });
-        // };
+  try {
+    // Deconstruct username and password
+    const { given_name, family_name, email, sub } = req.body;
+    // Check if either username or password fields are empty, if so throw an error
+    // if (username === '' || password === '') {
+    //     return next({
+    //         log: 'userController.createUser: Missing username or password',
+    //         status: 400,
+    //         message: { err: 'Mandatory field is missing' }
+    //     });
+    // };
 
-        // Create a new user in our database
-        console.log("this is request body", req.body);
-        const text = `SELECT username FROM users WHERE username = ($1);`
-        const values = [email];
+    // Create a new user in our database
+    console.log('this is request body', req.body);
+    const text = `SELECT username FROM users WHERE username = ($1);`;
+    const values = [email];
 
-        const result = await pool.query(text, values);
-        const username = result.rows[0];
-        console.log('this is the query text', username);
+    const result = await pool.query(text, values);
+    const username = result.rows[0];
+    console.log('this is the query text', username);
 
-        if (username === undefined) {
-            // create a new user
-            const createUserQuery = `INSERT INTO users (firstname, lastname, username, password) VALUES ($1, $2, $3, $4) RETURNING username;`;
-            const values2 = [given_name, family_name, email, sub];
-            const poolResponse = await pool.query(createUserQuery, values2);
+    if (username === undefined) {
+      // create a new user
+      const createUserQuery = `INSERT INTO users (firstname, lastname, username, password) VALUES ($1, $2, $3, $4) RETURNING username;`;
+      const values2 = [given_name, family_name, email, sub];
+      const poolResponse = await pool.query(createUserQuery, values2);
 
-            console.log('created a user in our database', createUserQuery);
-            const newUser = poolResponse.rows[0];
-            res.locals.username = newUser;
-        }
-        else {
-            res.locals.username = username;
-        };
-        console.log(res.locals.username);
-        next();
+      console.log('created a user in our database', createUserQuery);
+      const newUser = poolResponse.rows[0];
+      res.locals.username = newUser;
+    } else {
+      res.locals.username = username;
     }
-    catch (err) {
-        const errObj = {
-            log: 'loginController.verifyUser Error',
-            status: 404,
-            message: { err: 'An error occurred' },
-        };
-        return next({ ...errObj });
+    console.log(res.locals.username);
+    next();
+  } catch (err) {
+    const errObj = {
+      log: 'loginController.verifyUser Error',
+      status: 404,
+      message: { err: 'An error occurred' },
     };
+    return next({ ...errObj });
+  }
 };
-
 
 // loginController.verifyUser = (req, res, next) => {
 //     // check if username and password matches what we have in our database
@@ -61,7 +57,5 @@ loginController.verifyUser = async (req, res, next) => {
 //     res.locals.userId = 3;
 //     return next();
 // };
-
-
 
 module.exports = loginController;
