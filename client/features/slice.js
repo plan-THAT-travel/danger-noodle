@@ -68,15 +68,17 @@ export const featureSlice = createSlice({
   reducers: {
     ADD_GROUP: (state, action) => {
       // post to server with action.payload then create newGroup from response?
-
+      
       const newGroup = {
         groupName: action.payload.groupName,
         // groupId: response with group_id?
         travelDestination: action.payload.travelDestination,
         dates: action.payload.dates,
       };
-
-      state.groups.groupList.push(newGroup);
+      console.log('before adding', newGroup)
+      state.groupList.push(newGroup);
+      // console.log('after adding', groupList)
+      // return {...state, groupList: [...state.groupList, newGroup]};
       return state;
     },
     UPDATE_USER: (state, action) => {

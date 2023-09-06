@@ -14,16 +14,17 @@
 import React, { useRef, useState } from 'react';
 import { ADD_GROUP } from '../features/slice';
 import store from '../store';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const GroupCreator = props => {
   const [dates, setDates] = useState('');
+  const dispatch = useDispatch();
 
   const addGroup = () => {
     const groupName = document.getElementById('groupName').value;
     const travelDestination =
       document.getElementById('travelDestination').value;
-    props.dispatch(ADD_GROUP({ groupName, travelDestination, dates }));
+    dispatch(ADD_GROUP({ groupName, travelDestination, dates }));
     document.getElementById('groupName').value = '';
     document.getElementById('travelDestination').value = '';
     document.getElementById('dates').value = '';
@@ -36,7 +37,7 @@ const GroupCreator = props => {
       setDates(e.target.value);
     };
   };
-
+  
   return (
     <div>
       <h2 id='new-group'>Create New Group</h2>

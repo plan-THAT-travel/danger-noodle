@@ -14,16 +14,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const Group = props => {
-  const groups = useSelector(state => state.groups);
+const Group = (props) => {
+  const groupsList = useSelector(state => state.groups.groupList);
 
   return (
     <div className='groupBox'>
       <p>
         <strong>Group Name: </strong>
-        {`${groups.groupsList[props.index].groupName}`}
+        {`${groupsList[props.index].groupName}`}
       </p>
-      <p>
+      {/* <p>
         <strong>Travel Destination: </strong>
         {`${groups.groupsList[props.index].travelDestination}`}
       </p>
@@ -35,7 +35,7 @@ const Group = props => {
         <strong>End Date: </strong>
         {`${groups.groupsList[props.index].endDate}`}
       </p>
-      {/* <button onClick={() => deleteGroup()}>Delete Group</button> */}
+      <button onClick={() => deleteGroup()}>Delete Group</button> */}
     </div>
   );
 };

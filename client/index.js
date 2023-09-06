@@ -20,16 +20,20 @@ import Trip from './pages/Trip';
 import store from './store';
 import styles from './styles/styles.scss'; // eslint-disable-line no-unused-vars
 
-export default function App() {
+function App() {
   return (
+    <>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout />} />
-        <Route index element={<Login />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/trip' element={<Trip />} />
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Login />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/trip' element={<Trip />} />
+        </Route>
       </Routes>
     </BrowserRouter>
+    </>
+
   );
 }
 

@@ -6,9 +6,11 @@ import slice from '../client/features/slice';
 
 const store = configureStore(
   {
-    reducer: { groups: slice },
+    reducer: { 
+      groups: slice 
+    },
   },
-  composeWithDevTools(/* applyMiddleware(thunk) */),
+  // composeWithDevTools(/* applyMiddleware(thunk) */),
 );
 
 // store.dispatch(loadMarkets());
