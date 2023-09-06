@@ -73,7 +73,8 @@ export const featureSlice = createSlice({
         groupName: action.payload.groupName,
         // groupId: response with group_id?
         travelDestination: action.payload.travelDestination,
-        dates: action.payload.dates,
+        startDate: action.payload.startDate,
+        endDate: action.payload.endDate,
       };
       console.log('before adding', newGroup)
       state.groupList.push(newGroup);
