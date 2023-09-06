@@ -26,7 +26,7 @@ module.exports = {
       '/api/users': 'http://localhost:3000',
       '/api/itinerary': 'http://localhost:3000',
       '/api/groups': 'http://localhost:3000',
-
+      '/api': 'http://localhost:3000',
     },
   },
   module: {

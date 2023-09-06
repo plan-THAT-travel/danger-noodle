@@ -2,19 +2,20 @@ const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const loginRouter = require('./routers/loginRouter');
-const itineraryRouter = require(path.join(__dirname, 'routers/itineraryRouter'));
+const itineraryRouter = require(path.join(
+  __dirname,
+  'routers/itineraryRouter'
+));
 const groupsRouter = require('./routers/groupsRouter');
 
 const app = express();
 const PORT = 3000;
 
-
-
-// For environement production serve static files from dist
+// For environment production serve static files from dist
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.resolve(__dirname, '../dist')));
-  }
-  
+  app.use(express.static(path.resolve(__dirname, '../dist')));
+}
+
 // Base uses
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,7 +41,6 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}...`);
