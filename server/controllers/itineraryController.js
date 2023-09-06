@@ -25,6 +25,7 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     `;
     const values = [userId, groupId];
     const result = await pool.query(text, values);
+
     if (!result.rows.length) {
       throw new Error(
         `itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`,
@@ -37,7 +38,6 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     const errObj = {
       log: 'itineraryController.verifyUserGroup Error',
       message: { error: 'itineraryController.verifyUserGroup Error' },
-      // !FIX - 404 Error doesn't look like the correct error code
       status: 404,
     };
     return next({ ...errObj, log: err.message });
@@ -68,14 +68,14 @@ itineraryController.getAllItineraries = async (req, res, next) => {
     const value = [groupId];
     const result = await pool.query(text, value);
     console.log(result);
+
     res.locals.itineraries = result.rows;
 
     return next();
   } catch (err) {
     const errObj = {
-      log: 'itineraryController.getAllItineraries Error',
+      log: `itineraryController.getAllItineraries Error: ${err}`,
       message: { error: 'itineraryController.getAllItineraries Error' },
-      // !FIX - 404 Error doesn't look like the correct error code
       status: 404,
     };
     return next({ ...errObj, log: err.message });
@@ -104,9 +104,8 @@ itineraryController.addItinerary = async (req, res, next) => {
     return next();
   } catch (err) {
     const errObj = {
-      log: 'itineraryController.addItinerary Error',
+      log: `itineraryController.addItinerary Error: ${err}`,
       message: { error: 'itineraryController.addItinerary Error' },
-      // !FIX - 404 Error doesn't look like the correct error code
       status: 404,
     };
     return next({ ...errObj, log: err.message });
@@ -116,7 +115,6 @@ itineraryController.addItinerary = async (req, res, next) => {
 itineraryController.updateItinerary = async (req, res, next) => {
   try {
     // Destructure
-    console.log(req.params);
     // const { groupId } = req.params;
     // const { id } = req.params;
     const { title, category, hyperlink, cost, date_of_event } = req.body;
@@ -139,10 +137,9 @@ itineraryController.updateItinerary = async (req, res, next) => {
     return next();
   } catch (err) {
     const errObj = {
-      log: 'itineraryController.updateItinerary Error',
+      log: `itineraryController.updateItinerary Error: ${err}`,
       message: { error: 'itineraryController.updateItinerary Error' },
-      // !FIX - 500 Error doesn't look like the correct error code
-      status: 500,
+      status: 404,
     };
     return next({ ...errObj, log: err.message });
   }
@@ -163,7 +160,7 @@ itineraryController.deleteItinerary = async (req, res, next) => {
     return next();
   } catch (err) {
     const errObj = {
-      log: 'itineraryController.deleteItinerary Error',
+      log: `itineraryController.deleteItinerary Error: ${err}`,
       message: { error: 'itineraryController.deleteItinerary Error' },
       status: 404,
     };

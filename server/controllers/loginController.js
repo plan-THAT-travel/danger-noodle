@@ -43,7 +43,6 @@ loginController.verifyUser = async (req, res, next) => {
     catch (err) {
         const errObj = {
             log: 'loginController.verifyUser Error',
-            // !FIX - 404 Error doesn't look like the correct error code
             status: 404,
             message: { err: 'An error occurred' },
         };

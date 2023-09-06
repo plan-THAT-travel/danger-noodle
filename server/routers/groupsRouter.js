@@ -10,9 +10,9 @@ const groupsController = require('./../controllers/groupsController');
  *
  * @returns res.status(200).json(res.locals.allUsers)
  */
-router.get('/', loginController.verifyUser, groupsController.getGroups,
+router.get('/', groupsController.getAllGroups,
   (req, res) => {
-    res.status(200).json(res.locals.allUsers);
+    res.status(200).json(res.locals.allGroups);
   });
 
 /**
@@ -20,27 +20,41 @@ router.get('/', loginController.verifyUser, groupsController.getGroups,
  *
  * @returns res.status(200).json()
  */
-router.get('/:user_id')
 
 //THIS WILL CREATE A GROUP, TAKING IN A USER_ID
-router.post('/create/:user_id', groupsController.createGroup,
+router.post('/create/:user_id', groupsController.createGroup, groupsController.addUserToGroupId,
   (req, res) => {
-    res.status(200).json(res.locals.groupId);
+    res.status(200).json(res.locals.group_id);
   });
 
 //THIS WILL UPDATE GROUP INFORMATION, TAKING IN A GROUP_ID
-router.patch('/update/:group_id')
+router.patch('/update/:group_id', groupsController.updateGroup,
+  (req, res) => {
+    res.status(200).send('Successfully Updated Group')
+  });
 
 //THIS WILL GET ALL USERS IN A GROUP, TAKING IN A GROUP_ID
-router.get('/users/:group_id')
+router.get('/users/:group_id', groupsController.getAllUsersByGroupId,
+  (req, res) => {
+    res.status(200).json(res.locals.allUsersByGroup)
+  });
 
 //THIS WILL ADD A USER TO A GROUP, TAKING IN A GROUP_ID AND USER_ID
-router.post('/add/:group_id/:user_id')
+router.post('/add/:group_id/:user_id', groupsController.addUserToGroupId,
+  (req, res) => {
+    res.status(200).send('Successfully Added User to Group')
+  });
 
 //THIS WILL REMOVE A USER FROM A GROUP, TAKING IN A GROUP_ID AND USER_ID
-router.patch('/remove/:group_id/:user_id')
+router.delete('/remove/:group_id/:user_id', groupsController.removeUserByGroupId,
+  (req, res) => {
+    res.status(200).send('Successfully Removed User from Group')
+  });
 
 //THIS WILL DELETE A GROUP, TAKING IN A GROUP_ID
-router.delete('delete/:group_id')
+router.delete('/delete/:group_id', groupsController.removeGroup,
+  (req, res) => {
+    res.status(200).send('Successfully Removed Group')
+  });
 
 module.exports = router;

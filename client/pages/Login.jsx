@@ -31,7 +31,7 @@ const Login = () => {
       },
     })
       .then(response => response.json())
-      .then(json => console.log(json)).then(() => {
+      .then(json => {console.log(json)}).then(() => {
         navigate('/Home');
       });
   }
