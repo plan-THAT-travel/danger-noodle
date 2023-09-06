@@ -21,7 +21,7 @@ const GroupsDisplay = () => {
   const displayGroups = [];
 
   for (let i = 0; i < groups.length; i++) {
-    displayGroups.push(<Group index={i} key={`group_${i}`} />);
+    displayGroups.push(<Group index={i} key={`group_${i}`} groupId = {groups.groupName} />);
   }
 
   return (
