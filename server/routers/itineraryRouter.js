@@ -17,10 +17,6 @@ const router = express.Router();
  */
 router.get(
   '/:groupId',
-  (req, res, next) => {
-    res.locals.userId = '3';
-    return next();
-  },
   itineraryController.verifyUserGroup,
   itineraryController.getAllItineraries,
   (req, res) => {

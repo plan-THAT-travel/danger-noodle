@@ -25,6 +25,7 @@ itineraryController.verifyUserGroup = async (req, res, next) => {
     `;
     const values = [userId, groupId];
     const result = await pool.query(text, values);
+
     if (!result.rows.length) {
       throw new Error(
         `itineraryController.verifyUserGroup Error: No combination for User: ${userId} and Group: ${groupId}`
@@ -62,17 +63,17 @@ itineraryController.getAllItineraries = async (req, res, next) => {
     SELECT _id, group_id, title, category, hyperlink, cost,  to_char(date_of_event, 'DD Mon YYYY hh:mm') as date_of_event
     FROM itinerary_item
     WHERE group_id=($1)
-    ORDER BY itinerary_item.date_of_event ASC;
-    `;
+    ORDER BY itinerary_item.date_of_event ASC;`;
     const value = [groupId];
     const result = await pool.query(text, value);
     console.log(result);
+
     res.locals.itineraries = result.rows;
 
     return next();
   } catch (err) {
     const errObj = {
-      log: 'itineraryController.getAllItineraries Error',
+      log: `itineraryController.getAllItineraries Error: ${err}`,
       message: { error: 'itineraryController.getAllItineraries Error' },
       status: 404,
     };
@@ -102,7 +103,7 @@ itineraryController.addItinerary = async (req, res, next) => {
     return next();
   } catch (err) {
     const errObj = {
-      log: 'itineraryController.addItinerary Error',
+      log: `itineraryController.addItinerary Error: ${err}`,
       message: { error: 'itineraryController.addItinerary Error' },
       status: 404,
     };
@@ -113,7 +114,6 @@ itineraryController.addItinerary = async (req, res, next) => {
 itineraryController.updateItinerary = async (req, res, next) => {
   try {
     // Destructure
-    console.log(req.params);
     // const { groupId } = req.params;
     // const { id } = req.params;
     const { title, category, hyperlink, cost, date_of_event } = req.body;
@@ -136,9 +136,9 @@ itineraryController.updateItinerary = async (req, res, next) => {
     return next();
   } catch (err) {
     const errObj = {
-      log: 'itineraryController.updateItinerary Error',
+      log: `itineraryController.updateItinerary Error: ${err}`,
       message: { error: 'itineraryController.updateItinerary Error' },
-      status: 500,
+      status: 404,
     };
     return next({ ...errObj, log: err.message });
   }
@@ -159,7 +159,7 @@ itineraryController.deleteItinerary = async (req, res, next) => {
     return next();
   } catch (err) {
     const errObj = {
-      log: 'itineraryController.deleteItinerary Error',
+      log: `itineraryController.deleteItinerary Error: ${err}`,
       message: { error: 'itineraryController.deleteItinerary Error' },
       status: 404,
     };
