@@ -41,7 +41,7 @@ loginController.verifyUser = async (req, res, next) => {
     }
     catch(err) {
         const errObj = {
-            log: 'loginController.verifyUser Error',
+            log: err,
             status: 404,
             message: { err: 'An error occurred' },
         };

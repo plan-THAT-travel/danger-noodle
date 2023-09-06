@@ -1,9 +1,8 @@
 const { Pool } = require('pg');
-const path = require('path');
-const fs = require('fs');
 
-const secrets = JSON.parse(fs.readFileSync(path.join(__dirname, '../secrets/secrets.json')));
-const PG_URI = secrets.postgres;
+require('dotenv').config()
+
+const PG_URI = process.env.DB_URI;
 
 const pool = new Pool({
   connectionString: PG_URI,

@@ -11,8 +11,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import GCID_URI from './clientURLs';
 import jwt_decode from 'jwt-decode';
+import secrets from '../../secrets.json';
 
 const Login = () => {
   const [user, setUser] = useState({}); // currently using state, but need to use Redux store instead?
@@ -39,7 +39,7 @@ const Login = () => {
   useEffect(() => {
     /* global google */
     google.accounts.id.initialize({
-      client_id: GCID_URI,
+      client_id: secrets.GCID,
       login_uri: '/',
       state_cookie_domain: '/',
       callback: handleCallbackResponse,
