@@ -23,19 +23,19 @@ const Group = (props) => {
         <strong>Group Name: </strong>
         {`${groupsList[props.index].groupName}`}
       </p>
-      {/* <p>
+      <p>
         <strong>Travel Destination: </strong>
-        {`${groups.groupsList[props.index].travelDestination}`}
+        {`${groupsList[props.index].travelDestination}`}
       </p>
       <p>
         <strong>Start Date: </strong>
-        {`${groups.groupsList[props.index].startDate}`}
+        {`${groupsList[props.index].startDate}`}
       </p>
       <p>
         <strong>End Date: </strong>
-        {`${groups.groupsList[props.index].endDate}`}
+        {`${groupsList[props.index].endDate}`}
       </p>
-      <button onClick={() => deleteGroup()}>Delete Group</button> */}
+      <button onClick={() => deleteGroup()}>Delete Group</button>
     </div>
   );
 };
