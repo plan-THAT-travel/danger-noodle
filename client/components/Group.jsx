@@ -11,11 +11,17 @@
 
 /* Container for Groups Display to show each Group component the user created and or signed up for with onClick to expand to see user itinerary */
 
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { DELETE_GROUP } from '../features/slice';
 
 const Group = (props) => {
+  const navigate = useNavigate();
   const groupsList = useSelector(state => state.groups.groupList);
+  const dispatch = useDispatch();
+
+  // dispatch(DELETE_GROUP())
 
   return (
     <div className='groupBox'>
@@ -35,7 +41,8 @@ const Group = (props) => {
         <strong>End Date: </strong>
         {`${groupsList[props.index].endDate}`}
       </p>
-      <button onClick={() => deleteGroup()}>Delete Group</button>
+      <button onClick={() => navigate('/trip')}>Itinerary</button>
+      <button onClick={() => dispatch(DELETE_GROUP(groupsList[props.index].groupName))}>Delete Group</button>
     </div>
   );
 };

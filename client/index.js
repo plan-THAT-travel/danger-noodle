@@ -12,7 +12,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Layout from './pages/Layout';
 import Login from './pages/Login';
 import Home from './pages/Home';

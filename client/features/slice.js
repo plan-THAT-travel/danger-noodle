@@ -76,10 +76,18 @@ export const featureSlice = createSlice({
         startDate: action.payload.startDate,
         endDate: action.payload.endDate,
       };
-      console.log('before adding', newGroup)
       state.groupList.push(newGroup);
       // console.log('after adding', groupList)
       // return {...state, groupList: [...state.groupList, newGroup]};
+      return state;
+    },
+    DELETE_GROUP: (state, action) => {
+      for (let i = 0; i < state.groupList.length; i++) {
+        if(action.payload.groupName === state.groupList[i].groupName) {
+          state.groupList.splice(i, 1);
+          break;
+        }
+      }
       return state;
     },
     UPDATE_USER: (state, action) => {
@@ -94,6 +102,6 @@ export const featureSlice = createSlice({
   },
 });
 
-export const { ADD_GROUP, UPDATE_USER, setItineraryItems } = featureSlice.actions;
+export const { ADD_GROUP, UPDATE_USER, setItineraryItems, DELETE_GROUP } = featureSlice.actions;
 
 export default featureSlice.reducer;
