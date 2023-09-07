@@ -1,4 +1,4 @@
-import { ADD_GROUP, DELETE_GROUP, UPDATE_USER, setItineraryItems } from './slice';
+import { ADD_GROUP, GET_GROUP_LIST, DELETE_GROUP, UPDATE_USER, setItineraryItems } from './slice';
 const API_URL = 'http://localhost:3000/';
 
 // const groupList = async () => {

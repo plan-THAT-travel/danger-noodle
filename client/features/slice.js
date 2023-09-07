@@ -86,9 +86,8 @@ export const featureSlice = createSlice({
     },
     GET_GROUP_LIST: (state, action) => {
       // user_id = state.user_id;
-      console.log('inside get group list')
       // state.groupList = sliceService.fetchGroups();
-      
+      state.groupList = action.payload;
     },
     DELETE_GROUP: (state, action) => {
       // get the group name via action.payload and filter it out from array
