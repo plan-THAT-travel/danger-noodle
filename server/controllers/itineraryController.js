@@ -60,7 +60,8 @@ itineraryController.getAllItineraries = async (req, res, next) => {
 
     // Write Query to Select itineraries for groupId
     const text = `
-    SELECT _id, group_id, title, category, hyperlink, cost,  to_char(date_of_event, 'DD Mon YYYY hh:mm') as date_of_event
+    SELECT _id, group_id, title, category, hyperlink, cost,  
+    to_char(date_of_event, 'DD Mon YYYY hh:mm') as date_of_event
     FROM itinerary_item
     WHERE group_id=($1)
     ORDER BY itinerary_item.date_of_event ASC;`;
@@ -114,30 +115,19 @@ itineraryController.updateItinerary = async (req, res, next) => {
   try {
     // Destructure
     const { groupId, id } = req.params;
-    const { title, category, hyperlink, cost, date_of_event } = req.body;
+    //const { title, category, hyperlink, cost, date_of_event } = req.body;
 
-    // Write statement to update
-    const text = `
-    UPDATE itinerary_item
-    SET
-      title = $1,
-      category = $2,
-      hyperlink = $3,
-      cost = $4,
-      date_of_event = $5
-    WHERE group_Id = $6 AND _id = $7
-    RETURNING title, category, hyperlink, cost, date_of_event;
-  `;
-    const values = [
-      title,
-      category,
-      hyperlink,
-      cost,
-      date_of_event,
-      groupId,
-      id,
-    ];
-    const result = await pool.query(text, values);
+    const query = {
+      text:
+        'UPDATE itinerary_item SET ' +
+        Object.keys(req.body)
+          .map((key, index) => `${key} = $${index + 2}`)
+          .join(', ') +
+        ` WHERE _id = $1 RETURNING title, category, hyperlink, cost, date_of_event;`,
+      values: [groupId, ...Object.values(req.body)],
+    };
+
+    const result = await pool.query(query.text, query.values);
 
     res.locals.updateItinerary = result.rows[0];
     return next();
