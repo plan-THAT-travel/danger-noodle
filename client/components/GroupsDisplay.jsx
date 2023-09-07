@@ -33,7 +33,6 @@ const GroupsDisplay = () => {
 
   return (
     <div className='displayBox'>
-      <h4>Your Trips</h4>
       {displayGroups}
     </div>
   );

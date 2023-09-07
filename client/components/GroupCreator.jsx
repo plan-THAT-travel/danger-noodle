@@ -85,7 +85,7 @@ const GroupCreator = props => {
         id='end_date'
         onChange={DatePicker.handleChangeEnd}
         ref={DatePicker.dateInputRef}></input><br></br>
-      <button type='button' onClick={() => addGroup()}>
+      <button className="add-group-button" type='button' onClick={() => addGroup()}>
         Add Group
       </button>
     </div>

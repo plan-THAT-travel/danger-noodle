@@ -15,10 +15,13 @@ import GroupMainContainer from '../containers/GroupMainContainer';
 
 const Home = () => {
   return (
-    <div>
+    <div className="home-container">
       <Navbar />
-      {/* Main container for all User components */}
-      <GroupMainContainer />
+      <main className="user-container">
+        {/* Main container for all User components */}
+        <GroupMainContainer />
+      </main>
+   
     </div>
   );
 };
