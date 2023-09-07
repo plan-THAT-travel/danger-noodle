@@ -38,9 +38,10 @@ const GroupCreator = props => {
 
   const addGroup = async () => {
     const group_name = document.getElementById('groupName').value;
+    console.log('this is in groupCreator ', group_name);
     const travel_destination =
     document.getElementById('travelDestination').value;
-    if (!groupName || !travelDestination) {
+    if (!group_name || !travel_destination) {
       console.log('Please fill in group name or destination')
       alert('Please fill in the Group Name or Travel Destination')
       return;
@@ -49,10 +50,13 @@ const GroupCreator = props => {
     dispatch(ADD_GROUP({ group_name, travel_destination, start_date, end_date }));
     try {
       const newGroupResponse = await addGroupService({ group_name, travel_destination, start_date, end_date }, userId);
-      dispatch(ADD_GROUP_SUCCESS(newGroupResponse))
+      console.log('this is the response from the server ', newGroupResponse)
+      dispatch(ADD_GROUP_SUCCESS({ group_name, travel_destination, start_date, end_date }))
     } catch (error) {
       console.error('Failed to add the group: ', error);
     }
+
+    
     // addGroupService({ group_name, travel_destination, start_date, end_date }, userId);
     document.getElementById('groupName').value = '';
     document.getElementById('travelDestination').value = '';

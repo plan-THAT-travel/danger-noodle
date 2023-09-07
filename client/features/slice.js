@@ -65,6 +65,15 @@ Update state in the itinerary container
 
 */
 
+/* EXAMPLE REQ.BODY for POST to create group
+{
+    "groupName": "Cool Kids",
+    "destination": "Miami",
+    "startDate": "2023-09-10 12:30:00",
+    "endDate": "2023-10-01 12:30:00"
+}
+*/
+
 export const featureSlice = createSlice({
   name: 'feature',
   initialState,
@@ -80,9 +89,9 @@ export const featureSlice = createSlice({
         end_date: action.payload.end_date,
       };
       // console.log(action)
-      
+
       sliceService.addGroup(newGroup)
-      state.groupList.push(newGroup);
+      // state.groupList.push(newGroup);
       // console.log('after adding', groupList)
       // return {...state, groupList: [...state.groupList, newGroup]};
       return state;
@@ -111,10 +120,10 @@ export const featureSlice = createSlice({
       return state;
     },
     setItineraryItems: (state, action) => {
-        if (Array.isArray(action.payload)) {
-            state.groupList = action.payload;
-            // console.log(action.payload)
-        }
+      if (Array.isArray(action.payload)) {
+        state.groupList = action.payload;
+        // console.log(action.payload)
+      }
     }
   },
 });
