@@ -16,10 +16,11 @@ import sliceService from './sliceService';
 const initialState = {
   groupId: 1,
   newGroup: {
-    groupName: '',
-    travelDestination: '',
-    dates: '',
-    groupId: '',
+    group_name: '',
+    travel_destination: '',
+    start_date: '',
+    end_date: '',
+    _id: '',
   },
   groupList: [],
   newActivity: {
@@ -35,6 +36,7 @@ const initialState = {
   activityList: [],
   users: {
     userName: '',
+    _id: '',
   },
 };
 
@@ -83,10 +85,10 @@ export const featureSlice = createSlice({
       // return {...state, groupList: [...state.groupList, newGroup]};
       return state;
     },
-    GET_GROUP_LIST: (state) => {
+    GET_GROUP_LIST: (state, action) => {
       // user_id = state.user_id;
-      console.log('inside get group list')
-      state.groupList = sliceService.fetchGroups();
+      // state.groupList = sliceService.fetchGroups();
+      state.groupList = action.payload;
     },
     DELETE_GROUP: (state, action) => {
       // get the group name via action.payload and filter it out from array
@@ -101,8 +103,8 @@ export const featureSlice = createSlice({
     },
     setItineraryItems: (state, action) => {
         if (Array.isArray(action.payload)) {
-            state.activityList = action.payload;
-            console.log(action.payload)
+            state.groupList = action.payload;
+            // console.log(action.payload)
         }
     }
   },

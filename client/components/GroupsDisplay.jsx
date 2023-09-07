@@ -20,7 +20,7 @@ const GroupsDisplay = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchGroups());
-  }, [dispatch]);
+  }, []);
 
   const groups = useSelector(state => state.groups.groupList);
   console.log(groups);

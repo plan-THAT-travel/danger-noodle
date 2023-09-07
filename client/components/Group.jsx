@@ -25,19 +25,19 @@ const Group = (props) => {
     <div className='groupBox'>
       <p>
         <strong>Group Name: </strong>
-        {`${groupsList[props.index].groupName}`}
+        {`${groupsList[props.index].group_name}`}
       </p>
       <p>
         <strong>Travel Destination: </strong>
-        {`${groupsList[props.index].travelDestination}`}
+        {`${groupsList[props.index].travel_destination}`}
       </p>
       <p>
         <strong>Start Date: </strong>
-        {`${groupsList[props.index].startDate}`}
+        {`${groupsList[props.index].start_date}`}
       </p>
       <p>
         <strong>End Date: </strong>
-        {`${groupsList[props.index].endDate}`}
+        {`${groupsList[props.index].end_date}`}
       </p>
       <button style={{ marginTop: '10px'}} onClick={() => navigate('/trip')}>Itinerary</button>
       <button style={{ marginTop: '10px' }}onClick={() => dispatch(DELETE_GROUP(groupsList[props.index].groupName))}>Delete Group</button>
