@@ -64,13 +64,13 @@ groupsController.getAllGroups = async (req, res, next) => {
  */
 groupsController.createGroup = async (req, res, next) => {
   try {
-    const { groupName, destination, startDate, endDate } = req.body;
+    const { group_name, travel_destination, start_date, end_date } = req.body;
     const { user_id } = req.params;
 
     const query = `INSERT INTO travel_group (owner_id, group_name, travel_destination, start_date, end_date)
     VALUES ($1, $2, $3, $4, $5)
     RETURNING _id;`;
-    const values = [user_id, groupName, destination, startDate, endDate];
+    const values = [user_id, group_name, travel_destination, start_date, end_date];
     const result = await pool.query(query, values);
 
     res.locals.group_id = result.rows[0];

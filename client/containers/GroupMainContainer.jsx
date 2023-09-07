@@ -15,13 +15,13 @@ import GroupCreatorContainer from './GroupCreatorContainer';
 import GroupDisplayContainer from './GroupDisplayContainer';
 
 const GroupMainContainer = () => {
-  const userState = useSelector(state => state.users.username)
+  const userState = useSelector(state => state.groups.user.username)
 
   return (
     <div className='container'>
       <div className='outerbox'>
         {/* Need to grab user name from Login to store in state and use in H1 below */}
-        <h1> `Plan-it Travel Trips for {userState}` </h1>
+        <h1> Plan-it Travel Trips for {userState} </h1>
         <GroupCreatorContainer />
         <GroupDisplayContainer />
       </div>
