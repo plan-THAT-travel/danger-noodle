@@ -20,7 +20,7 @@ const initialState = {
     travel_destination: '',
     start_date: '',
     end_date: '',
-    groupId: '',
+    _id: '',
   },
   groupList: [],
   newActivity: {
@@ -36,6 +36,7 @@ const initialState = {
   activityList: [],
   users: {
     userName: '',
+    _id: '',
   },
 };
 
