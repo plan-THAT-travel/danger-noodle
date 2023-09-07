@@ -1,3 +1,5 @@
+//Sorry about this all being in one file!!! <3
+
 //Styles for Activity.jsx
 .trip-feed{
     display: flex;
@@ -17,9 +19,6 @@
     border: solid 1px #000000;
     border-radius: 4px;
     box-shadow: 3px 3px 2px #ececec;
-    //display: flex;
-    //justify-content: space-between;
-    //align-items: center;
 }
 
 h2 {
@@ -46,24 +45,24 @@ h2 {
 
 //Styles for Group.jsx
 .groupBox {
-    background-color: rgba(23, 128, 110, 0.8); /* Set your desired background color */
+    background-color: rgba(23, 128, 110, 0.8); 
     padding: 20px;
     margin-bottom: 10px;
-    border: 1px solid #ccc; /* Set your desired border style */
+    border: 1px solid #ccc; 
     border-radius: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   
-  /* Additional styling for nested elements */
+  
   .groupBox p {
     margin: 5px 0;
   }
   
   .groupBox button {
-    background-color: #2F4F4F; /* Set your desired button color */
-    color: #fff; /* Set text color */
+    background-color: #3e6868; 
+    color: #fff; 
     border: none;
     padding: 5px 10px;
     cursor: pointer;
@@ -71,5 +70,83 @@ h2 {
   }
   
   .groupBox button:hover {
-    background-color: #0056b3; /* Change button color on hover */
+    background-color: #6f8d8d; 
+  }
+
+
+  //Styles for Navbar
+  .navbar {
+    background-color: rgba(23, 64, 128, 0.8); 
+    padding: 10px 0; 
+    width: 100%;
+    position: fixed;
+    top: 0;
+  }
+  
+  .nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-item {
+    margin: 0;
+  }
+  
+  .nav-item a {
+    text-decoration: none;
+    color: #FFFFFF; 
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px; 
+    transition: color 0.3s ease; 
+  }
+  
+  .nav-item a:hover {
+    color: rgba(144, 211, 255, 0.8); 
+  }
+
+  //Styles for homepage 
+  .home-container {
+    background-color: #F5F5F5; 
+    font-family: Arial, sans-serif; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    min-height: 100vh; 
+  }
+  
+  .user-container {
+    max-width: 1200px;
+    margin: 20px auto; 
+    padding: 20px; 
+    background-color: #FFFFFF; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    margin-top: 60px;
+  }
+
+  .main-title {
+    text-align: center;
+    font-family: "Your-Desired-Font", sans-serif;
+    font-size: 24px;
+    margin-top: 20px;
+  }
+  
+  
+  .add-group-button {
+    background-color: #0074D9;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 20px auto; 
+    display: block;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  
+  .add-group-button:hover {
+    background-color: #0056b3;
   }
