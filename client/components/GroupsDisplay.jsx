@@ -27,7 +27,7 @@ const GroupsDisplay = () => {
   console.log(groups);
   const displayGroups = [];
 
-  for (let i = 0; i < groups.length; i++) {
+  for (let i = groups.length - 1; i > 0; i--) {
     displayGroups.push(<Group index={i} key={`group_${i}`} groupId = {groups.groupName} />);
   }
 

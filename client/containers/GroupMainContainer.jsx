@@ -16,13 +16,14 @@ import GroupDisplayContainer from './GroupDisplayContainer';
 
 const GroupMainContainer = () => {
   const userState = useSelector(state => state.groups.user.username)
+  const usernameBeforeAt = userState.split('@')[0];
 
   return (
     <div className='container'>
       <div className='outerbox'>
         {/* Need to grab user name from Login to store in state and use in H1 below */}
         <main className="content-container">
-          <h1 className="main-title"> Plan-it Travel Trips for {userState} </h1>
+          <h1 className="main-title"> Plan-it Travel Trips for {usernameBeforeAt} </h1>
           <GroupCreatorContainer />
           <GroupDisplayContainer />
         </main>
