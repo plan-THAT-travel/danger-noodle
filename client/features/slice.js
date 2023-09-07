@@ -84,8 +84,9 @@ export const featureSlice = createSlice({
       return state;
     },
     GET_GROUP_LIST: (state) => {
-      user_id = state.user_id;
-      state.groupList = sliceService.groupList(user_id);
+      // user_id = state.user_id;
+      console.log('inside get group list')
+      state.groupList = sliceService.fetchGroups();
     },
     DELETE_GROUP: (state, action) => {
       // get the group name via action.payload and filter it out from array
@@ -101,6 +102,7 @@ export const featureSlice = createSlice({
     setItineraryItems: (state, action) => {
         if (Array.isArray(action.payload)) {
             state.activityList = action.payload;
+            console.log(action.payload)
         }
     }
   },

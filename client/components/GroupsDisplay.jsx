@@ -9,13 +9,19 @@
  * ************************************
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Group from './Group.jsx';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchGroups } from '../features/sliceService.js';
 
 // initialState = { groupName="", travelDestination = "", dates="", groupId = "", groupList = []};
 
 const GroupsDisplay = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchGroups());
+  }, [dispatch]);
+
   const groups = useSelector(state => state.groups.groupList);
   console.log(groups);
   const displayGroups = [];

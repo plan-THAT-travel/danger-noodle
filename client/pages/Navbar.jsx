@@ -17,7 +17,7 @@ import Trip from './Trip';
 
 function Navbar() {
   return (
-    <nav>
+    <nav class ="navbar container">
       <ul>
         <li id='nav-bar'>
           <Link to='/'>Login</Link>
