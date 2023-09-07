@@ -12,24 +12,28 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Layout from './pages/Layout';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Trip from './pages/Trip';
 import store from './store';
-import styles from './styles/styles.scss'; // eslint-disable-line no-unused-vars
+import './styles/styles.scss'; // eslint-disable-line no-unused-vars
 
-export default function App() {
+function App() {
   return (
+    <>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout />} />
-        <Route index element={<Login />} />
-        <Route path='/home' element={<Home />} />
-        <Route path='/trip' element={<Trip />} />
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Login />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/trip' element={<Trip />} />
+        </Route>
       </Routes>
     </BrowserRouter>
+    </>
+
   );
 }
 

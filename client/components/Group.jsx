@@ -11,31 +11,36 @@
 
 /* Container for Groups Display to show each Group component the user created and or signed up for with onClick to expand to see user itinerary */
 
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { DELETE_GROUP } from '../features/slice';
 
-const Group = props => {
-  const groups = useSelector(state => state.groups);
+const Group = (props) => {
+  const navigate = useNavigate();
+  const groupsList = useSelector(state => state.groups.groupList);
+  const dispatch = useDispatch();
 
   return (
     <div className='groupBox'>
       <p>
         <strong>Group Name: </strong>
-        {`${groups.groupsList[props.index].groupName}`}
+        {`${groupsList[props.index].groupName}`}
       </p>
       <p>
         <strong>Travel Destination: </strong>
-        {`${groups.groupsList[props.index].travelDestination}`}
+        {`${groupsList[props.index].travelDestination}`}
       </p>
       <p>
         <strong>Start Date: </strong>
-        {`${groups.groupsList[props.index].startDate}`}
+        {`${groupsList[props.index].startDate}`}
       </p>
       <p>
         <strong>End Date: </strong>
-        {`${groups.groupsList[props.index].endDate}`}
+        {`${groupsList[props.index].endDate}`}
       </p>
-      {/* <button onClick={() => deleteGroup()}>Delete Group</button> */}
+      <button onClick={() => navigate('/trip')}>Itinerary</button>
+      <button onClick={() => dispatch(DELETE_GROUP(groupsList[props.index].groupName))}>Delete Group</button>
     </div>
   );
 };

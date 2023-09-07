@@ -10,12 +10,12 @@
  */
 
 import React from 'react';
-// import Navbar from './Navbar';
+import Navbar from './Navbar';
 import ActivityDisplayContainer from '../containers/ActivityDisplayContainer';
 const Trip = () => {
   return (
     <div>
-      {/*<Navbar />*/}
+      <Navbar />
       <ActivityDisplayContainer />
       {/* Header goes here  */}
       {/* Main container for all User components */}

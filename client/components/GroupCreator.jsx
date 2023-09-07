@@ -13,28 +13,39 @@
 
 import React, { useRef, useState } from 'react';
 import { ADD_GROUP } from '../features/slice';
-import store from '../store';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const GroupCreator = props => {
-  const [dates, setDates] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const dispatch = useDispatch();
 
+
+  const DatePicker = {
+    // const dates = useSelector(state => state.groups.dates);
+    dateInputRef : useRef(null),
+    handleChangeStart : e => {
+      setStartDate(e.target.value)
+    },
+    handleChangeEnd : e => {
+      setEndDate(e.target.value)
+    },
+  };
+  
   const addGroup = () => {
     const groupName = document.getElementById('groupName').value;
     const travelDestination =
-      document.getElementById('travelDestination').value;
-    props.dispatch(ADD_GROUP({ groupName, travelDestination, dates }));
+    document.getElementById('travelDestination').value;
+    if (!groupName || !travelDestination) {
+      console.log('Please fill in group name or destination')
+      alert('Please fill in the Group Name or Travel Destination')
+      return;
+    }
+    dispatch(ADD_GROUP({ groupName, travelDestination, startDate, endDate }));
     document.getElementById('groupName').value = '';
     document.getElementById('travelDestination').value = '';
-    document.getElementById('dates').value = '';
-  };
-
-  const DatePicker = () => {
-    const dates = useSelector(state => state.groups.dates);
-    const dateInputRef = useRef(null);
-    const handleChange = e => {
-      setDates(e.target.value);
-    };
+    document.getElementById('startDate').value = '';
+    document.getElementById('endDate').value = '';
   };
 
   return (
@@ -44,12 +55,18 @@ const GroupCreator = props => {
       <input type='text' id='groupName'></input>
       <label htmlFor='travelDestination'>Travel Destination: </label>
       <input type='text' id='travelDestination'></input>
+      <p>Start Date: {startDate} </p>
       <input
         type='date'
-        id='dates'
-        onChange={DatePicker.handleChange}
-        ref={DatePicker.dateInputRef}></input>
-      <p>Selected Dates: {dates}</p>
+        id='startDate'
+        onChange={DatePicker.handleChangeStart}
+        ref={DatePicker.dateInputRef}></input><br></br>
+      <p>End Date: {endDate} </p>
+      <input
+        type='date'
+        id='endDate'
+        onChange={DatePicker.handleChangeEnd}
+        ref={DatePicker.dateInputRef}></input><br></br>
       <button type='button' onClick={() => addGroup()}>
         Add Group
       </button>
