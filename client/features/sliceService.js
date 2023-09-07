@@ -1,4 +1,4 @@
-import { ADD_GROUP, DELETE_GROUP, UPDATE_USER, setItineraryItems } from './slice';
+import { ADD_GROUP, GET_GROUP_LIST, DELETE_GROUP, UPDATE_USER, setItineraryItems } from './slice';
 const API_URL = 'http://localhost:3000/';
 
 // const groupList = async () => {
@@ -25,7 +25,7 @@ export const fetchGroups = () => async (dispatch) => {
         }
       });
       const data = await response.json();
-      console.log(data)
+      console.log('sliceservice', data)
       dispatch(setItineraryItems(data)); // Assuming data is an array of itineraries.
     } catch (error) {
       console.error("Error fetching groups:", error);
