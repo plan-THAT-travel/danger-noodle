@@ -1,3 +1,4 @@
+//Styles for Activity.jsx
 .trip-feed{
     display: flex;
     flex-direction: column;
@@ -16,12 +17,9 @@
     border: solid 1px #000000;
     border-radius: 4px;
     box-shadow: 3px 3px 2px #ececec;
-}
-
-.itin-item div{
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 5px;
+    //display: flex;
+    //justify-content: space-between;
+    //align-items: center;
 }
 
 h2 {
@@ -30,3 +28,48 @@ h2 {
     color: #ffffff;
 }
 
+
+.itin-item div{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+
+.itin-item a {
+    text-decoration: none;
+    color: #5da4f0
+}
+
+.itin-item a:hover {
+    text-decoration: underline;
+}
+
+//Styles for Group.jsx
+.groupBox {
+    background-color: rgba(23, 128, 110, 0.8); /* Set your desired background color */
+    padding: 20px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Set your desired border style */
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Additional styling for nested elements */
+  .groupBox p {
+    margin: 5px 0;
+  }
+  
+  .groupBox button {
+    background-color: #2F4F4F; /* Set your desired button color */
+    color: #fff; /* Set text color */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .groupBox button:hover {
+    background-color: #0056b3; /* Change button color on hover */
+  }
