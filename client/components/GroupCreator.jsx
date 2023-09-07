@@ -51,7 +51,7 @@ const GroupCreator = props => {
     try {
       const newGroupResponse = await addGroupService({ group_name, travel_destination, start_date, end_date }, userId);
       console.log('this is the response from the server ', newGroupResponse)
-      dispatch(ADD_GROUP_SUCCESS({ group_name, travel_destination, start_date, end_date }))
+      dispatch(ADD_GROUP_SUCCESS({ group_name, travel_destination, start_date, end_date, group_id: newGroupResponse }))
     } catch (error) {
       console.error('Failed to add the group: ', error);
     }

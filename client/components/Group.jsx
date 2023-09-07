@@ -40,7 +40,7 @@ const Group = (props) => {
         {`${groupsList[props.index].end_date}`}
       </p>
       <button onClick={() => navigate('/trip')}>Itinerary</button>
-      <button onClick={() => dispatch(DELETE_GROUP(groupsList[props.index].group_name))}>Delete Group</button>
+      <button onClick={() => dispatch(DELETE_GROUP(groupsList[props.index]._id))}>Delete Group</button>
     </div>
   );
 };

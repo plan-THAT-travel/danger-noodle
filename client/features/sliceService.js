@@ -34,8 +34,9 @@ export const fetchGroups = () => async (dispatch) => {
 
   //const userId = useSelector(state => state.groups.user._id);
 
-  export const addGroup = async (userdata, userId) => {
+export const addGroup = async (userdata, userId) => {
     try {
+    let returnData;
     const data = JSON.stringify(userdata);
     console.log('this is the data being sent, ', data)
     console.log('this is the user_id ', userId, ' it is of type ', typeof userId)
@@ -46,8 +47,27 @@ export const fetchGroups = () => async (dispatch) => {
       },
       body: data,
     })
+    .then(response => {
+      returnData = response.json();
+    })
+    return returnData;
   } catch (error) {
     console.error("Error fetching groups:", error);
+  }
+}
+
+export const deleteGroup = async (group_id) => {
+  try {
+    console.log(group_id)
+    const response = await fetch(API_URL + `api/groups/delete/${group_id}`, {
+      method:'DELETE',
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+
+  } catch(error) {
+    console.log("Error deleting groups:", error)
   }
 }
 
@@ -57,6 +77,7 @@ export const fetchGroups = () => async (dispatch) => {
 const sliceService = {
     fetchGroups,
     addGroup,
+    deleteGroup
 };
 
 export default sliceService;

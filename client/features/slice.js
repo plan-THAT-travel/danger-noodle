@@ -107,9 +107,11 @@ export const featureSlice = createSlice({
     DELETE_GROUP: (state, action) => {
       // get the group name via action.payload and filter it out from array
       // issue is same names get deleted. will have to figure out by id
-      const groupName = action.payload;
-      state.groupList = state.groupList.filter((group) => group.groupName !== groupName)
+      const group_id = action.payload;
+      (console.log('This is the group_id', group_id))
+      state.groupList = state.groupList.filter((group) => group._id !== group_id)
       console.log(state.groupList)
+      sliceService.deleteGroup(group_id)
     },
     SET_USERNAME: (state, action) => {
       state.user.username = action.payload.username;
