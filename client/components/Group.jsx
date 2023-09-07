@@ -21,8 +21,6 @@ const Group = (props) => {
   const groupsList = useSelector(state => state.groups.groupList);
   const dispatch = useDispatch();
 
-  // dispatch(DELETE_GROUP())
-
   return (
     <div className='groupBox'>
       <p>

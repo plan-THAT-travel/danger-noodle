@@ -10,6 +10,7 @@
  */
 
 import { createSlice } from '@reduxjs/toolkit';
+import sliceService from './sliceService';
 
 //this state governs the state of the entire app
 const initialState = {
@@ -82,6 +83,10 @@ export const featureSlice = createSlice({
       // return {...state, groupList: [...state.groupList, newGroup]};
       return state;
     },
+    GET_GROUP_LIST: (state) => {
+      user_id = state.user_id;
+      state.groupList = sliceService.groupList(user_id);
+    },
     DELETE_GROUP: (state, action) => {
       // get the group name via action.payload and filter it out from array
       // issue is same names get deleted. will have to figure out by id
@@ -101,6 +106,6 @@ export const featureSlice = createSlice({
   },
 });
 
-export const { ADD_GROUP, UPDATE_USER, setItineraryItems, DELETE_GROUP } = featureSlice.actions;
+export const { ADD_GROUP, UPDATE_USER, setItineraryItems, DELETE_GROUP, GET_GROUP_LIST } = featureSlice.actions;
 
 export default featureSlice.reducer;

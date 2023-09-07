@@ -13,11 +13,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import jwt_decode from 'jwt-decode';
 import secrets from '../../secrets.json';
+import { useDispatch } from 'react-redux';
+import { SET_USERNAME } from '../features/user/userSlice';
 
 const Login = () => {
   const [user, setUser] = useState({}); // currently using state, but need to use Redux store instead?
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   function handleCallbackResponse(response) {
     const userObject = jwt_decode(response.credential);
@@ -31,11 +34,16 @@ const Login = () => {
       },
     })
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => {
+        console.log(json)
+        dispatch(SET_USERNAME(json.username))
+      })
       .then(() => {
         navigate('/home');
       });
   }
+
+  //{ username: 'caheri.aguilar@gmail.com' }
 
   useEffect(() => {
     /* global google */
