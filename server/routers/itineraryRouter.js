@@ -15,14 +15,9 @@ const router = express.Router();
  * @returns {Array<Object>}
  * @returns All itineraries for the group Id
  */
-router.get(
-  '/:groupId',
-  itineraryController.verifyUserGroup,
-  itineraryController.getAllItineraries,
-  (req, res) => {
-    return res.status(200).json(res.locals.itineraries);
-  }
-);
+router.get('/:groupId', itineraryController.getAllItineraries, (req, res) => {
+  return res.status(200).json(res.locals.itineraries);
+});
 
 /**
  *
@@ -40,16 +35,12 @@ router.get(
  * @returns response status 201
  */
 router.post('/:groupId/', itineraryController.addItinerary, (req, res) => {
-  return res.status(201).json(res.locals.newItinerary);
+  return res.status(201).json(res.locals.newEvent);
 });
 
-router.put(
-  '/:groupId/itinerary/:id',
-  itineraryController.updateItinerary,
-  (req, res) => {
-    return res.status(201).json(res.locals.updateItinerary);
-  }
-);
+router.put('/:groupId/:id', itineraryController.updateItinerary, (req, res) => {
+  return res.status(201).json(res.locals.updateItinerary);
+});
 
 /**
  *
@@ -61,10 +52,10 @@ router.put(
  * @returns successful deletion status
  */
 router.delete(
-  '/:groupId/itinerary/:id',
+  '/delete/:groupId/:id',
   itineraryController.deleteItinerary,
   (req, res) => {
-    return res.status(200).json(res.locals.deleteItinerary);
+    return res.status(200).send(res.locals.deleteItinerary);
   }
 );
 

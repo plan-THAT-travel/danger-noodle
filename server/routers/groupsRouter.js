@@ -32,7 +32,7 @@ router.post(
 
 //THIS WILL UPDATE GROUP INFORMATION, TAKING IN A GROUP_ID
 router.patch('/update/:group_id', groupsController.updateGroup, (req, res) => {
-  res.status(200).send('Successfully Updated Group');
+  res.status(200).json(res.locals.result);
 });
 
 //THIS WILL GET ALL USERS IN A GROUP, TAKING IN A GROUP_ID
