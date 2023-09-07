@@ -15,15 +15,29 @@ groupsController.getAllGroups = async (req, res, next) => {
     // if user_id query string is included, query db by userId
     if (user_id) {
       const values = [user_id];
-      const text = `SELECT tg._id, tg.owner_id, tg.group_name, tg.travel_destination FROM travel_group as tg
-      JOIN group_members as gm ON tg._id = gm.group_id
-      JOIN users ON gm.user_id = users._id
-      WHERE users._id = $1;`;
+      const text = `SELECT 
+        tg._id, 
+        tg.owner_id, 
+        tg.group_name, 
+        tg.travel_destination, 
+        to_char(
+          tg.start_date, 'DD Mon YYYY hh:mm'
+        ) as start_date, 
+        to_char(
+          tg.end_date, 'DD Mon YYYY hh:mm'
+        ) as end_date 
+      FROM 
+        travel_group as tg 
+        JOIN group_members as gm ON tg._id = gm.group_id 
+        JOIN users ON gm.user_id = users._id 
+      WHERE 
+        users._id = $1;`;
       const allGroups = await pool.query(text, values);
       res.locals.allGroups = allGroups.rows;
     } else {
-      const text =
-        'SELECT _id, owner_id, group_name, travel_destination FROM travel_group;';
+      const text = `SELECT _id, owner_id, group_name, travel_destination, to_char(start_date, 
+        'DD Mon YYYY hh:mm') as start_date, to_char(end_date, 'DD Mon YYYY hh:mm') as end_date 
+        FROM travel_group;`;
       const allGroups = await pool.query(text);
       res.locals.allGroups = allGroups.rows;
     }
@@ -83,34 +97,21 @@ groupsController.createGroup = async (req, res, next) => {
 groupsController.updateGroup = async (req, res, next) => {
   try {
     const { group_id } = req.params;
-    const { newGroupName, newDestination } = req.body;
 
-    //Checks which arguments have been passed into the req.body to decide which columns need to be updated
-    if (newGroupName && newDestination) {
-      const query = `UPDATE travel_group
-      SET group_name = $2, travel_destination = $3
-      WHERE _id = $1;`;
-      const values = [group_id, newGroupName, newDestination];
-      await pool.query(query, values);
+    const query = {
+      text:
+        'UPDATE travel_group SET ' +
+        Object.keys(req.body)
+          .map((key, index) => `${key} = $${index + 2}`)
+          .join(', ') +
+        ` WHERE _id = $1 RETURNING group_name, travel_destination;`,
+      values: [group_id, ...Object.values(req.body)],
+    };
 
-      return next();
-    } else if (newGroupName) {
-      const query = `UPDATE travel_group
-      SET group_name = $2
-      WHERE _id = $1;`;
-      const values = [group_id, newGroupName];
-      await pool.query(query, values);
+    const result = await pool.query(query.text, query.values);
+    res.locals.result = result.rows[0];
 
-      return next();
-    } else if (newDestination) {
-      const query = `UPDATE travel_group
-      SET travel_destination = $2
-      WHERE _id = $1;`;
-      const values = [group_id, newDestination];
-      await pool.query(query, values);
-
-      return next();
-    }
+    return next();
   } catch (err) {
     const errObj = {
       log: `groupsController.updateGroup Error: ${err}`,
