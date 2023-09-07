@@ -17,6 +17,7 @@ import { fetchGroups } from '../features/sliceService.js';
 // initialState = { groupName="", travelDestination = "", dates="", groupId = "", groupList = []};
 
 const GroupsDisplay = () => {
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchGroups());

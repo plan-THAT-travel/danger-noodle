@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router';
 import jwt_decode from 'jwt-decode';
 import secrets from '../../secrets.json';
 import { useDispatch } from 'react-redux';
-import { SET_USERNAME } from '../features/user/userSlice';
+import { SET_USERNAME } from '../features/slice';
 
 const Login = () => {
   const [user, setUser] = useState({}); // currently using state, but need to use Redux store instead?
@@ -36,7 +36,7 @@ const Login = () => {
       .then(response => response.json())
       .then(json => {
         console.log(json)
-        dispatch(SET_USERNAME(json.username))
+        dispatch(SET_USERNAME(json))
       })
       .then(() => {
         navigate('/home');
