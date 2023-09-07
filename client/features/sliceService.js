@@ -25,7 +25,7 @@ export const fetchGroups = () => async (dispatch) => {
         }
       });
       const data = await response.json();
-      console.log(data)
+      console.log('sliceservice', data)
       dispatch(setItineraryItems(data)); // Assuming data is an array of itineraries.
     } catch (error) {
       console.error("Error fetching groups:", error);
