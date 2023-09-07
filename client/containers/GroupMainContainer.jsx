@@ -15,7 +15,7 @@ import GroupCreatorContainer from './GroupCreatorContainer';
 import GroupDisplayContainer from './GroupDisplayContainer';
 
 const GroupMainContainer = () => {
-  const userState = useSelector(state => state.users.username)
+  const userState = useSelector(state => state.groups.user.username)
 
   return (
     <div className='container'>
