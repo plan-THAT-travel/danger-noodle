@@ -16,7 +16,7 @@ loginController.verifyUser = async (req, res, next) => {
 
     // Create a new user in our database
     console.log('this is request body', req.body);
-    const text = `SELECT username FROM users WHERE username = ($1);`;
+    const text = `SELECT username, _id FROM users WHERE username = ($1);`;
     const values = [email];
 
     const result = await pool.query(text, values);
@@ -25,7 +25,7 @@ loginController.verifyUser = async (req, res, next) => {
 
     if (username === undefined) {
       // create a new user
-      const createUserQuery = `INSERT INTO users (firstname, lastname, username, password) VALUES ($1, $2, $3, $4) RETURNING username;`;
+      const createUserQuery = `INSERT INTO users (firstname, lastname, username, password) VALUES ($1, $2, $3, $4) RETURNING username, _id;`;
       const values2 = [given_name, family_name, email, sub];
       const poolResponse = await pool.query(createUserQuery, values2);
 
